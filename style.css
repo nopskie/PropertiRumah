@@ -1,0 +1,33 @@
+body {
+  background-color: #F4F6FA;
+  color: #0B192C;
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, #D4AF37 0%, #F5C451 50%, #B08D26 100%);
+}
+
+.navy-gradient {
+  background: linear-gradient(135deg, #060E1F 0%, #0B192C 55%, #1E3E62 100%);
+}
+
+.locked-field {
+  background-color: #EEF2F7;
+  cursor: not-allowed;
+  user-select: none;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B192C;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D4AF37;
+  border-radius: 4px;
+}
