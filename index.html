@@ -1,0 +1,1891 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FORM PENDAFTARAN AFFILIATOR PROPERTI - FFProjectJKT</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- jsPDF untuk Generate & Unduh Dokumen PDF A4 Otomatis -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- Konfigurasi Tema Tailwind -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              950: '#060E1F',
+              900: '#0B192C',
+              800: '#132847',
+              700: '#1E3E62',
+              600: '#2A5585',
+            },
+            gold: {
+              300: '#FDE08D',
+              400: '#F5C451',
+              500: '#D4AF37',
+              600: '#B08D26',
+              700: '#8A6B19',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Font Awesome untuk Icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <!-- Custom CSS Terpisah -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+  <!-- ==================== HEADER UTAMA ==================== -->
+  <header class="navy-gradient text-white border-b-4 border-gold-500 shadow-xl sticky top-0 z-30">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex flex-col md:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-3.5 text-center md:text-left">
+        <!-- Logo Lingkaran Resmi FFProjectJKT (SVG Presisi) -->
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full shrink-0 shadow-[0_0_18px_rgba(212,175,55,0.45)] flex items-center justify-center bg-black overflow-hidden">
+          <svg viewBox="0 0 400 400" class="w-full h-full block" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo Resmi FFProjectJKT">
+            <circle cx="200" cy="200" r="200" fill="#000000" />
+            <circle cx="200" cy="200" r="184" fill="none" stroke="#FF0000" stroke-width="15" />
+            <circle cx="200" cy="200" r="163" fill="none" stroke="#FFFFFF" stroke-width="11" />
+            <rect x="281" y="132" width="32" height="58" fill="#FF0000" />
+            <rect x="275" y="123" width="44" height="14" fill="#FF0000" />
+            <path d="M 62 198 Q 130 145 200 104 Q 270 145 338 198 L 325 203 Q 262 162 200 125 Q 138 162 75 203 Z" fill="#FF0000" />
+            <rect x="177" y="144" width="20" height="17" fill="#FFFFFF" />
+            <rect x="203" y="144" width="20" height="17" fill="#FFFFFF" />
+            <rect x="177" y="166" width="20" height="17" fill="#FFFFFF" />
+            <rect x="203" y="166" width="20" height="17" fill="#FFFFFF" />
+            <path d="M 56 207 Q 132 166 196 205 L 185 211 Q 132 180 68 214 Z" fill="#FFFFFF" />
+            <path d="M 162 214 Q 248 164 344 207 L 332 214 Q 248 180 177 214 Z" fill="#FFFFFF" />
+            <rect x="64" y="214" width="272" height="8" fill="#FFFFFF" />
+            <text x="200" y="263" text-anchor="middle" fill="#FF0000" font-family="Georgia, 'Times New Roman', serif" font-size="38" font-weight="bold" letter-spacing="-0.3">FFProjectJKT</text>
+            <text x="200" y="309" text-anchor="middle" fill="#FFFFFF" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="bold">&copy; 2025</text>
+          </svg>
+        </div>
+        <div>
+          <span class="inline-block text-[11px] uppercase tracking-widest font-bold text-gold-400 bg-navy-800/90 px-2.5 py-0.5 rounded-full border border-gold-500/30 mb-1">
+            Official Partner Portal &bull; ffprojectjkt@gmail.com
+          </span>
+          <h1 class="font-display font-extrabold text-lg sm:text-xl md:text-2xl tracking-tight text-white leading-snug">
+            FORM PENDAFTARAN AFFILIATOR PROPERTI - <span class="text-gold-400">FFProjectJKT</span>
+          </h1>
+        </div>
+      </div>
+
+      <!-- Navigasi Tab Cepat -->
+      <div class="flex flex-wrap items-center justify-center gap-2">
+        <button type="button" onclick="scrollToSection('simulasi-section')" class="text-xs sm:text-sm font-semibold px-3 py-2 rounded-lg bg-navy-800 hover:bg-navy-700 text-gold-300 border border-gold-500/30 transition">
+          <i class="fa-solid fa-calculator mr-1"></i> Simulasi Komisi
+        </button>
+
+        <!-- Tombol Daftar (Tampil jika belum daftar) -->
+        <button type="button" id="btnDaftarHeader" onclick="scrollToSection('form-section')" class="text-xs sm:text-sm font-bold px-3.5 py-2 rounded-lg gold-gradient text-navy-950 shadow hover:opacity-95 transition">
+          <i class="fa-solid fa-user-plus mr-1"></i> Daftar Sekarang
+        </button>
+
+        <!-- Badge Nama User (Otomatis menggantikan tombol Daftar setelah terdaftar) -->
+        <div id="userBadgeHeader" class="hidden items-center gap-2 text-xs sm:text-sm font-bold px-3.5 py-2 rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-400/40 shadow-sm" title="Affiliator Terdaftar">
+          <i class="fa-solid fa-circle-user text-gold-400 text-base"></i>
+          <span id="userBadgeName" class="max-w-[150px] truncate">Nama User</span>
+        </div>
+
+        <button type="button" onclick="togglePromoModal(this)" class="text-xs sm:text-sm font-semibold px-3 py-2 rounded-lg bg-navy-800 hover:bg-navy-700 text-white border border-white/15 transition" title="Lihat Iklan Baris & Banner Promosi">
+          <i class="fa-solid fa-bullhorn text-gold-400 mr-1"></i> Kit Promosi
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MENU TAB UTAMA (PENDAFTARAN vs PERJANJIAN VISIT) ==================== -->
+  <nav class="bg-white border-b border-slate-200 shadow-sm sticky top-[88px] sm:top-[100px] z-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-wrap sm:flex-nowrap gap-2 py-2.5">
+      <button
+        type="button"
+        id="mainTabBtnPendaftaran"
+        onclick="switchMainTab('pendaftaran')"
+        class="flex-1 py-2.5 px-4 rounded-xl navy-gradient text-gold-400 font-display font-bold text-xs sm:text-sm shadow flex items-center justify-center gap-2 transition"
+      >
+        <i class="fa-solid fa-user-plus"></i>
+        <span>1. Pendaftaran Affiliator</span>
+      </button>
+      <button
+        type="button"
+        id="mainTabBtnVisit"
+        onclick="switchMainTab('visit')"
+        class="flex-1 py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-navy-900 font-display font-bold text-xs sm:text-sm border border-slate-300 flex items-center justify-center gap-2 transition"
+      >
+        <i class="fa-solid fa-file-pdf text-rose-600"></i>
+        <span>2. Form Perjanjian Visit Properti</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ==================== WRAPPER TAB 1: PENDAFTARAN AFFILIATOR ==================== -->
+  <div id="mainTabPendaftaran" class="flex-1 flex flex-col">
+
+    <!-- ==================== HERO BANNER / AJAKAN BERGABUNG ==================== -->
+    <section class="navy-gradient text-white py-10 px-4 sm:px-6 relative overflow-hidden">
+      <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/20 border border-gold-400/40 text-gold-300 text-xs font-semibold">
+            <i class="fa-solid fa-award text-gold-400"></i> PELUANG PENGHASILAN TANPA MODAL &bull; KERJA DARI MANA SAJA
+          </div>
+          <h2 class="font-display font-extrabold text-2xl sm:text-3xl md:text-4xl leading-tight">
+            Jadilah Agen Lepas <span class="text-gold-400">Affiliator Properti</span> Bersama <span class="underline decoration-gold-500">FFProjectJKT</span>!
+          </h2>
+          <p class="text-slate-200 text-sm sm:text-base leading-relaxed">
+            Punya akun <strong>WhatsApp, Facebook, Instagram, TikTok, YouTube, atau Google Business</strong>? Ubah jaringan dan media sosial Anda menjadi sumber komisi jutaan rupiah! Semua alat promosi mulai dari <strong>Iklan Baris, Banner Profesional, hingga Video Konten </strong>sudah kami siapkan. Anda cukup sebar, biarkan tim kami yang melayani survei &amp; akad!
+          </p>
+          <div class="grid grid-cols-3 gap-3 pt-2">
+            <div class="bg-navy-800/80 border border-gold-500/30 rounded-xl p-3 text-center">
+              <div class="text-gold-400 font-display font-extrabold text-lg sm:text-xl">Rp 0</div>
+              <div class="text-[11px] sm:text-xs text-slate-300">Gratis Pendaftaran</div>
+            </div>
+            <div class="bg-navy-800/80 border border-gold-500/30 rounded-xl p-3 text-center">
+              <div class="text-gold-400 font-display font-extrabold text-lg sm:text-xl">100% Siap</div>
+              <div class="text-[11px] sm:text-xs text-slate-300">Banner &amp; Video Kit</div>
+            </div>
+            <div class="bg-navy-800/80 border border-gold-500/30 rounded-xl p-3 text-center">
+              <div class="text-gold-400 font-display font-extrabold text-lg sm:text-xl">Transparan</div>
+              <div class="text-[11px] sm:text-xs text-slate-300">Komisi Jelas &amp; Resmi</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kartu Banner Mini Visual -->
+        <div class="lg:col-span-5">
+          <div class="rounded-2xl bg-gradient-to-br from-navy-800 via-navy-900 to-navy-950 border-2 border-gold-500 p-6 shadow-2xl relative">
+            <div class="flex items-center justify-between border-b border-gold-500/30 pb-3 mb-4">
+              <span class="text-xs font-bold tracking-wider uppercase text-gold-400"><i class="fa-solid fa-house-chimney mr-1"></i> FFProjectJKT Property Network</span>
+              <span class="px-2 py-0.5 text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 rounded-full">OPEN RECRUITMENT</span>
+            </div>
+            <h3 class="font-display font-bold text-xl text-white mb-2">
+              Posting Iklan &rarr; Closing &rarr; Terima Komisi!
+            </h3>
+            <ul class="space-y-2.5 text-xs sm:text-sm text-slate-200 mb-5">
+              <li class="flex items-start gap-2.5">
+                <i class="fa-solid fa-circle-check text-gold-400 mt-0.5"></i>
+                <span>Tidak perlu pengalaman agen properti sebelumnya.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <i class="fa-solid fa-circle-check text-gold-400 mt-0.5"></i>
+                <span>Tidak wajib mengantar survei atau mengurus KPR/Notaris.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <i class="fa-solid fa-circle-check text-gold-400 mt-0.5"></i>
+                <span>Materi iklan siap copas untuk WA, IG, FB, TikTok, YT &amp; Google Business.</span>
+              </li>
+            </ul>
+            <button type="button" onclick="togglePromoModal(this)" class="w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/20 border border-gold-400/50 text-gold-300 font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2">
+              <i class="fa-solid fa-eye"></i> Lihat Kit Promosi Affiliator
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <main class="max-w-6xl w-full mx-auto px-4 sm:px-6 py-8 space-y-10 flex-1">
+
+      <!-- ==================== BAGIAN 1: TABEL SIMULASI KOMISI INTERAKTIF ==================== -->
+      <section id="simulasi-section" class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+        <div class="bg-navy-900 px-6 py-4 border-b-2 border-gold-500 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h2 class="font-display font-bold text-lg sm:text-xl text-white flex items-center gap-2">
+              <i class="fa-solid fa-coins text-gold-400"></i>
+              TABEL SIMULASI KOMISI AFFILIATOR
+            </h2>
+            <p class="text-xs text-slate-300 mt-0.5">
+              Ubah angka pada kolom <strong>Nilai Rumah Terjual</strong> untuk melihat simulasi komisi Anda secara otomatis.
+            </p>
+          </div>
+          <span class="inline-flex items-center gap-1.5 text-xs font-semibold bg-gold-500/20 text-gold-300 border border-gold-400/40 px-3 py-1.5 rounded-lg self-start sm:self-auto">
+            <i class="fa-solid fa-lock text-gold-400"></i> Rumus Resmi Terkunci
+          </span>
+        </div>
+
+        <div class="p-6 space-y-6">
+          <!-- Preset Cepat Harga Properti (Dropdown) -->
+          <div class="flex flex-col sm:flex-row sm:items-center gap-2.5">
+            <label for="selectHargaSimulasi" class="text-xs sm:text-sm font-semibold text-slate-700 shrink-0">
+              <i class="fa-solid fa-bolt text-gold-600 mr-1"></i>Simulasi Cepat Harga Properti:
+            </label>
+            <div class="relative w-full sm:w-80">
+              <select
+                id="selectHargaSimulasi"
+                onchange="if(this.value) setHargaSimulasi(Number(this.value))"
+                class="w-full appearance-none pl-3.5 pr-9 py-2.5 rounded-xl bg-slate-50 border-2 border-slate-300 hover:border-gold-500 focus:border-navy-900 focus:ring-2 focus:ring-gold-500/30 font-semibold text-xs sm:text-sm text-navy-900 outline-none cursor-pointer transition"
+              >
+                <option value="">-- Input Manual / Pilih Properti --</option>
+                <option value="500000000" selected>Rp 500 Juta</option>
+                <option value="1000000000">Rp 1 Miliar</option>
+                <option value="2600000000">Rp 2,6 Miliar — Plosokuning IV (Sleman)</option>
+                <option value="8000000000">Rp 8 Miliar — Pondok Asri (Purwakarta)</option>
+                <option value="14000000000">Rp 14 Miliar — Hotel Jayagiri (Lembang)</option>
+              </select>
+              <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-navy-900">
+                <i class="fa-solid fa-chevron-down text-xs"></i>
+              </span>
+            </div>
+          </div>
+
+          <!-- Tabel Simulasi Utama -->
+          <div class="overflow-x-auto rounded-xl border border-slate-300">
+            <table class="w-full text-left border-collapse min-w-[760px]">
+              <thead>
+                <tr class="bg-navy-800 text-white text-xs uppercase tracking-wider">
+                  <th class="p-3.5 border-r border-navy-700 w-[30%]">
+                    <div class="flex items-center gap-1.5 text-gold-300">
+                      <i class="fa-solid fa-pen-to-square"></i> Nilai Rumah Terjual
+                    </div>
+                    <span class="text-[10px] font-normal text-slate-300 normal-case">(Closing / Transfer Bank - Input Manual)</span>
+                  </th>
+                  <th class="p-3.5 border-r border-navy-700 text-center w-[13%]">
+                    <div class="flex items-center justify-center gap-1">
+                      <i class="fa-solid fa-lock text-gold-400 text-[10px]"></i> % Pengelola
+                    </div>
+                    <span class="text-[10px] font-normal text-slate-300 normal-case">(Terkunci)</span>
+                  </th>
+                  <th class="p-3.5 border-r border-navy-700 w-[22%]">
+                    <div class="flex items-center gap-1">
+                      <i class="fa-solid fa-lock text-gold-400 text-[10px]"></i> Komisi Kotor Pengelola (2%)
+                    </div>
+                    <span class="text-[10px] font-normal text-slate-300 normal-case">(Otomatis &amp; Terkunci)</span>
+                  </th>
+                  <th class="p-3.5 border-r border-navy-700 text-center w-[13%]">
+                    <div class="flex items-center justify-center gap-1">
+                      <i class="fa-solid fa-lock text-gold-400 text-[10px]"></i> % Affiliator
+                    </div>
+                    <span class="text-[10px] font-normal text-slate-300 normal-case">(Terkunci)</span>
+                  </th>
+                  <th class="p-3.5 bg-navy-950 text-gold-400 w-[22%]">
+                    <div class="flex items-center gap-1">
+                      <i class="fa-solid fa-lock text-gold-400 text-[10px]"></i> Komisi Kotor Affiliator
+                    </div>
+                    <span class="text-[10px] font-normal text-gold-200 normal-case">(10% dari Komisi Pengelola)</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 text-sm">
+                <tr class="bg-white">
+                  <td class="p-3.5 border-r border-slate-200 bg-amber-50/40">
+                    <div class="relative flex items-center">
+                      <span class="absolute left-3 font-bold text-navy-900 text-sm">Rp</span>
+                      <input
+                        type="text"
+                        id="inputNilaiRumah"
+                        inputmode="numeric"
+                        value="500.000.000"
+                        oninput="handleHargaInput(this)"
+                        aria-label="Nilai Rumah Terjual dalam Rupiah"
+                        class="w-full pl-10 pr-3 py-2.5 rounded-lg border-2 border-gold-500 bg-white font-display font-bold text-navy-950 text-base focus:outline-none focus:ring-2 focus:ring-navy-800 transition"
+                        placeholder="Masukkan harga rumah..."
+                      />
+                    </div>
+                    <p class="text-[11px] text-amber-800 mt-1 font-medium">
+                      <i class="fa-solid fa-hand-pointer mr-1"></i>Ketik angka harga rumah di atas
+                    </p>
+                  </td>
+
+                  <td class="p-3.5 border-r border-slate-200 text-center">
+                    <div class="relative">
+                      <input
+                        type="text"
+                        id="persenPengelola"
+                        value="2%"
+                        readonly
+                        tabindex="-1"
+                        class="w-full text-center py-2.5 px-2 rounded-lg border border-slate-300 locked-field font-bold text-navy-900"
+                      />
+                    </div>
+                  </td>
+
+                  <td class="p-3.5 border-r border-slate-200">
+                    <input
+                      type="text"
+                      id="nominalKomisiPengelola"
+                      value="Rp 10.000.000"
+                      readonly
+                      tabindex="-1"
+                      class="w-full py-2.5 px-3 rounded-lg border border-slate-300 locked-field font-display font-bold text-navy-900"
+                    />
+                  </td>
+
+                  <td class="p-3.5 border-r border-slate-200 text-center">
+                    <input
+                      type="text"
+                      id="persenAffiliator"
+                      value="10%"
+                      readonly
+                      tabindex="-1"
+                      class="w-full text-center py-2.5 px-2 rounded-lg border border-slate-300 locked-field font-bold text-navy-900"
+                    />
+                  </td>
+
+                  <td class="p-3.5 bg-gold-500/10">
+                    <input
+                      type="text"
+                      id="nominalKomisiAffiliator"
+                      value="Rp 1.000.000"
+                      readonly
+                      tabindex="-1"
+                      class="w-full py-2.5 px-3 rounded-lg border-2 border-gold-500 bg-navy-900 text-gold-400 font-display font-extrabold text-base cursor-not-allowed select-none"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Catatan Penjelasan & Perbandingan Skema Komisi -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <div class="lg:col-span-7 space-y-2">
+              <h3 class="font-display font-bold text-sm text-navy-900 flex items-center gap-2">
+                <i class="fa-solid fa-circle-info text-gold-600"></i>
+                Ketentuan Perhitungan Komisi FFProjectJKT:
+              </h3>
+              <ul class="text-xs sm:text-sm text-slate-700 space-y-1.5 leading-relaxed">
+                <li class="flex items-start gap-2">
+                  <span class="font-bold text-navy-900">1.</span>
+                  <span><strong>Komisi Kotor Pengelola (FFProjectJKT):</strong> Sebesar <strong>2%</strong> dari Nilai Harga Jual yang disepakati (Nilai Transfer / Closing) antara Pembeli dan Pemilik Properti.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="font-bold text-navy-900">2.</span>
+                  <span><strong>Komisi Kotor Affiliator:</strong> Sebesar <strong>10% dari Komisi Kotor yang diterima Pengelola (2%)</strong>, <u>BUKAN</u> 10% dari nilai akad/transfer rumah.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="font-bold text-navy-900">3.</span>
+                  <span><strong>Rumus Efektif:</strong> <code class="bg-white px-1.5 py-0.5 rounded border border-slate-300 text-navy-900 font-semibold">10% &times; (2% &times; Nilai Rumah) = 0,2% dari Nilai Rumah</code>.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="lg:col-span-5 bg-white rounded-xl border border-slate-200 p-3.5">
+              <div class="text-xs font-bold text-navy-900 uppercase tracking-wide mb-2 flex items-center justify-between">
+                <span>Perbandingan Basis Hitung (Simulasi Saat Ini)</span>
+                <i class="fa-solid fa-scale-balanced text-gold-600"></i>
+              </div>
+              <table class="w-full text-xs border-collapse">
+                <thead>
+                  <tr class="bg-slate-100 text-slate-700">
+                    <th class="p-2 text-left rounded-tl-lg">Basis Perhitungan</th>
+                    <th class="p-2 text-right rounded-tr-lg">Nominal (10%)</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200">
+                  <tr class="bg-emerald-50/70">
+                    <td class="p-2 font-semibold text-emerald-900">
+                      <i class="fa-solid fa-check-circle text-emerald-600 mr-1"></i>
+                      10% dari Komisi Pengelola (2%) <span class="block text-[10px] font-normal text-emerald-700">(Ketentuan Resmi Berlaku)</span>
+                    </td>
+                    <td id="perbandinganResmi" class="p-2 text-right font-bold text-emerald-900">Rp 1.000.000</td>
+                  </tr>
+                  <tr class="bg-rose-50/50 text-slate-500">
+                    <td class="p-2 line-through">
+                      <i class="fa-solid fa-xmark-circle text-rose-500 mr-1"></i>
+                      10% langsung dari Nilai Akad <span class="block text-[10px] no-underline text-rose-600">(Tidak Berlaku)</span>
+                    </td>
+                    <td id="perbandinganTidakBerlaku" class="p-2 text-right line-through">Rp 50.000.000</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== BAGIAN 2: SYARAT & KONDISI AFFILIATOR ==================== -->
+      <section class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+        <div class="bg-navy-900 px-6 py-4 border-b-2 border-gold-500 flex items-center justify-between">
+          <h2 class="font-display font-bold text-lg sm:text-xl text-white flex items-center gap-2">
+            <i class="fa-solid fa-file-contract text-gold-400"></i>
+            SYARAT &amp; KETENTUAN AFFILIATOR FFProjectJKT
+          </h2>
+          <span class="hidden sm:inline-block text-xs text-gold-300 font-medium">Wajib Dibaca Sebelum Mendaftar</span>
+        </div>
+
+        <div class="p-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 text-xs sm:text-sm">
+            <div class="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-gold-500 transition">
+              <div class="w-8 h-8 rounded-lg bg-navy-900 text-gold-400 flex items-center justify-center shrink-0 mt-0.5">
+                <i class="fa-solid fa-id-card"></i>
+              </div>
+              <div>
+                <strong class="text-navy-900 block">1. STATUS &amp; IDENTITAS SAH</strong>
+                <span class="text-slate-600">Warga Negara Indonesia (WNI) berusia minimal 18 tahun, memiliki KTP aktif &amp; rekening bank pribadi atas nama sendiri sesuai KTP.</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-gold-500 transition">
+              <div class="w-8 h-8 rounded-lg bg-navy-900 text-gold-400 flex items-center justify-center shrink-0 mt-0.5">
+                <i class="fa-solid fa-handshake-angle"></i>
+              </div>
+              <div>
+                <strong class="text-navy-900 block">2. HUBUNGAN KEMITRAAN LEPAS</strong>
+                <span class="text-slate-600">Affiliator berstatus mitra lepas (freelance) independen, bukan karyawan tetap, tanpa gaji pokok &amp; tanpa target mengikat.</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-gold-500 transition">
+              <div class="w-8 h-8 rounded-lg bg-navy-900 text-gold-400 flex items-center justify-center shrink-0 mt-0.5">
+                <i class="fa-solid fa-bullhorn"></i>
+              </div>
+              <div>
+                <strong class="text-navy-900 block">3. ETIKA &amp; MATERI PROMOSI</strong>
+                <span class="text-slate-600">Wajib menggunakan materi resmi FFProjectJKT secara jujur tanpa informasi menyesatkan/hoaks serta mematuhi UU ITE &amp; kebijakan platform (WA, FB, IG, TikTok, YT, Google).</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-gold-500 transition">
+              <div class="w-8 h-8 rounded-lg bg-navy-900 text-gold-400 flex items-center justify-center shrink-0 mt-0.5">
+                <i class="fa-solid fa-user-check"></i>
+              </div>
+              <div>
+                <strong class="text-navy-900 block">4. KLAIM CALON PEMBELI (VALID LEAD)</strong>
+                <span class="text-slate-600">Calon pembeli wajib didaftarkan/dilaporkan lebih dulu ke admin FFProjectJKT sebelum survei lokasi agar tercatat sah sebagai referensi Affiliator.</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-gold-500 transition">
+              <div class="w-8 h-8 rounded-lg bg-navy-900 text-gold-400 flex items-center justify-center shrink-0 mt-0.5">
+                <i class="fa-solid fa-money-bill-transfer"></i>
+              </div>
+              <div>
+                <strong class="text-navy-900 block">5. PENCAIRAN KOMISI &amp; PAJAK</strong>
+                <span class="text-slate-600">Komisi 10% dari fee kotor pengelola (2%) cair maksimal 3&ndash;7 hari kerja setelah dana komisi diterima penuh oleh FFProjectJKT pasca akad/transfer bank (dipotong PPh sesuai aturan pajak berlaku).</span>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-gold-500 transition">
+              <div class="w-8 h-8 rounded-lg bg-navy-900 text-gold-400 flex items-center justify-center shrink-0 mt-0.5">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <div>
+                <strong class="text-navy-900 block">6. LARANGAN MARK-UP &amp; PRIVASI DATA</strong>
+                <span class="text-slate-600">Dilarang menaikkan harga (mark-up) tanpa izin tertulis pengelola. Data pribadi pendaftar dijaga kerahasiaannya sesuai UU Pelindungan Data Pribadi (UU PDP).</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== BAGIAN 3: FORM PENDAFTARAN CALON AFFILIATOR ==================== -->
+      <section id="form-section" class="bg-white rounded-2xl shadow-xl border-2 border-navy-900/10 overflow-hidden">
+        <div class="navy-gradient px-6 py-5 border-b-4 border-gold-500 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h2 class="font-display font-extrabold text-lg sm:text-xl text-white flex items-center gap-2">
+              <i class="fa-solid fa-file-signature text-gold-400"></i>
+              FORMULIR DATA CALON AFFILIATOR
+            </h2>
+            <p class="text-xs text-slate-300 mt-0.5">
+              Isi data dengan lengkap dan benar. Data Anda terlindungi dan tidak ditampilkan ke publik.
+            </p>
+          </div>
+          <div class="flex items-center gap-1.5 text-xs text-emerald-300 bg-emerald-950/60 border border-emerald-500/40 px-3 py-1.5 rounded-full self-start sm:self-auto">
+            <i class="fa-solid fa-user-shield"></i> Privasi Terjamin &bull; Terenkripsi
+          </div>
+        </div>
+
+        <form id="affiliatorForm" onsubmit="handleFormSubmit(event)" class="p-6 sm:p-8 space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+              <label for="namaLengkap" class="block text-sm font-bold text-navy-900 mb-1.5">
+                Nama Lengkap (Sesuai KTP) <span class="text-rose-600">*</span>
+              </label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
+                  <i class="fa-solid fa-user"></i>
+                </span>
+                <input
+                  type="text"
+                  id="namaLengkap"
+                  name="namaLengkap"
+                  required
+                  placeholder="Contoh: Budi Santoso"
+                  class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:border-navy-800 focus:ring-2 focus:ring-gold-500/40 outline-none text-sm transition"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="nomorWa" class="block text-sm font-bold text-navy-900 mb-1.5">
+                Nomor WhatsApp Aktif <span class="text-rose-600">*</span>
+              </label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-emerald-600">
+                  <i class="fa-brands fa-whatsapp text-base"></i>
+                </span>
+                <input
+                  type="tel"
+                  id="nomorWa"
+                  name="nomorWa"
+                  required
+                  placeholder="Contoh: 081234567890"
+                  class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:border-navy-800 focus:ring-2 focus:ring-gold-500/40 outline-none text-sm transition"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="emailAktif" class="block text-sm font-bold text-navy-900 mb-1.5">
+                Alamat Email Aktif <span class="text-rose-600">*</span>
+              </label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
+                  <i class="fa-solid fa-envelope"></i>
+                </span>
+                <input
+                  type="email"
+                  id="emailAktif"
+                  name="emailAktif"
+                  required
+                  placeholder="Contoh: budi.santoso@gmail.com"
+                  class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:border-navy-800 focus:ring-2 focus:ring-gold-500/40 outline-none text-sm transition"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="domisili" class="block text-sm font-bold text-navy-900 mb-1.5">
+                Domisili (Kota / Kabupaten) <span class="text-rose-600">*</span>
+              </label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
+                  <i class="fa-solid fa-location-dot"></i>
+                </span>
+                <input
+                  type="text"
+                  id="domisili"
+                  name="domisili"
+                  required
+                  placeholder="Contoh: Jakarta Selatan / Bekasi / Tangerang"
+                  class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:border-navy-800 focus:ring-2 focus:ring-gold-500/40 outline-none text-sm transition"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Pilihan Media Sosial Utama -->
+          <div class="bg-slate-50 p-4 sm:p-5 rounded-xl border border-slate-200">
+            <label class="block text-sm font-bold text-navy-900 mb-1">
+              Media Sosial Utama untuk Promosi <span class="text-rose-600">*</span>
+            </label>
+            <p class="text-xs text-slate-500 mb-3">Pilih satu atau lebih media yang akan Anda gunakan untuk menyebarkan iklan FFProjectJKT:</p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5" id="sosmedCheckboxes">
+              <label class="flex items-center gap-2.5 p-2.5 rounded-lg bg-white border border-slate-300 hover:border-gold-500 cursor-pointer transition select-none">
+                <input type="checkbox" name="sosmed" value="WhatsApp" class="w-4 h-4 accent-navy-900 rounded" />
+                <i class="fa-brands fa-whatsapp text-emerald-600"></i>
+                <span class="text-xs sm:text-sm font-medium text-navy-900">WhatsApp</span>
+              </label>
+
+              <label class="flex items-center gap-2.5 p-2.5 rounded-lg bg-white border border-slate-300 hover:border-gold-500 cursor-pointer transition select-none">
+                <input type="checkbox" name="sosmed" value="Facebook" class="w-4 h-4 accent-navy-900 rounded" />
+                <i class="fa-brands fa-facebook text-blue-600"></i>
+                <span class="text-xs sm:text-sm font-medium text-navy-900">Facebook</span>
+              </label>
+
+              <label class="flex items-center gap-2.5 p-2.5 rounded-lg bg-white border border-slate-300 hover:border-gold-500 cursor-pointer transition select-none">
+                <input type="checkbox" name="sosmed" value="Instagram" class="w-4 h-4 accent-navy-900 rounded" />
+                <i class="fa-brands fa-instagram text-pink-600"></i>
+                <span class="text-xs sm:text-sm font-medium text-navy-900">Instagram</span>
+              </label>
+
+              <label class="flex items-center gap-2.5 p-2.5 rounded-lg bg-white border border-slate-300 hover:border-gold-500 cursor-pointer transition select-none">
+                <input type="checkbox" name="sosmed" value="TikTok" class="w-4 h-4 accent-navy-900 rounded" />
+                <i class="fa-brands fa-tiktok text-slate-900"></i>
+                <span class="text-xs sm:text-sm font-medium text-navy-900">TikTok</span>
+              </label>
+
+              <label class="flex items-center gap-2.5 p-2.5 rounded-lg bg-white border border-slate-300 hover:border-gold-500 cursor-pointer transition select-none">
+                <input type="checkbox" name="sosmed" value="YouTube" class="w-4 h-4 accent-navy-900 rounded" />
+                <i class="fa-brands fa-youtube text-red-600"></i>
+                <span class="text-xs sm:text-sm font-medium text-navy-900">YouTube</span>
+              </label>
+
+              <label class="flex items-center gap-2.5 p-2.5 rounded-lg bg-white border border-slate-300 hover:border-gold-500 cursor-pointer transition select-none">
+                <input type="checkbox" name="sosmed" value="Google Business" class="w-4 h-4 accent-navy-900 rounded" />
+                <i class="fa-brands fa-google text-amber-500"></i>
+                <span class="text-xs sm:text-sm font-medium text-navy-900">Google Business</span>
+              </label>
+
+              <label class="flex items-center gap-2.5 p-2.5 rounded-lg bg-white border border-slate-300 hover:border-gold-500 cursor-pointer transition select-none col-span-2 sm:col-span-1">
+                <input type="checkbox" name="sosmed" value="Lainnya" class="w-4 h-4 accent-navy-900 rounded" />
+                <i class="fa-solid fa-share-nodes text-navy-700"></i>
+                <span class="text-xs sm:text-sm font-medium text-navy-900">Lainnya</span>
+              </label>
+            </div>
+            <p id="sosmedError" class="hidden text-xs text-rose-600 font-semibold mt-2">
+              <i class="fa-solid fa-triangle-exclamation mr-1"></i>Silakan pilih minimal satu media sosial untuk promosi.
+            </p>
+          </div>
+
+          <!-- Link / Username Akun Media Sosial & Info Rekening Bank -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+              <label for="akunSosmed" class="block text-sm font-bold text-navy-900 mb-1.5">
+                Link / Username Akun Media Sosial <span class="text-rose-600">*</span>
+              </label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
+                  <i class="fa-solid fa-at"></i>
+                </span>
+                <input
+                  type="text"
+                  id="akunSosmed"
+                  name="akunSosmed"
+                  required
+                  placeholder="Contoh: @budi.properti / instagram.com/budiproperti"
+                  class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:border-navy-800 focus:ring-2 focus:ring-gold-500/40 outline-none text-sm transition"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="rekeningBank" class="block text-sm font-bold text-navy-900 mb-1.5">
+                Nama Bank &amp; Nomor Rekening (Pencairan Komisi) <span class="text-rose-600">*</span>
+              </label>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
+                  <i class="fa-solid fa-building-columns"></i>
+                </span>
+                <input
+                  type="text"
+                  id="rekeningBank"
+                  name="rekeningBank"
+                  required
+                  placeholder="Contoh: BCA - 1234567890 a.n. Budi Santoso"
+                  class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:border-navy-800 focus:ring-2 focus:ring-gold-500/40 outline-none text-sm transition"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Ringkasan Ketentuan Komisi Terkunci -->
+          <div class="rounded-xl bg-navy-900/5 border border-navy-900/15 p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+            <div class="flex items-start gap-2.5 text-navy-900">
+              <i class="fa-solid fa-lock text-gold-600 text-base mt-0.5"></i>
+              <div>
+                <strong>Konfirmasi Skema Komisi Terkunci:</strong> Komisi Pengelola FFProjectJKT = <strong>2%</strong> dari Nilai Jual; Komisi Affiliator = <strong>10%</strong> dari Komisi Pengelola (bukan dari nilai akad).
+              </div>
+            </div>
+            <span class="px-2.5 py-1 rounded bg-navy-900 text-gold-400 font-bold shrink-0">2% &rarr; 10%</span>
+          </div>
+
+          <!-- Checkbox Persetujuan -->
+          <div class="pt-1">
+            <label class="flex items-start gap-3 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                id="setujuSyarat"
+                required
+                class="w-5 h-5 mt-0.5 accent-navy-900 rounded border-slate-300 shrink-0"
+              />
+              <span class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                Saya menyatakan bahwa data yang saya isi adalah benar sesuai identitas asli, dan saya telah membaca, memahami, serta menyetujui seluruh <strong>Syarat &amp; Ketentuan Affiliator FFProjectJKT</strong> beserta skema pembagian komisi yang berlaku. <span class="text-rose-600">*</span>
+              </span>
+            </label>
+          </div>
+
+          <!-- Tombol Simpan Pendaftaran -->
+          <div class="pt-2">
+            <button
+              type="submit"
+              class="w-full py-4 px-6 rounded-xl gold-gradient text-navy-950 font-display font-extrabold text-base sm:text-lg shadow-lg hover:shadow-xl hover:brightness-105 active:scale-[0.99] transition flex items-center justify-center gap-2.5 cursor-pointer"
+            >
+              <i class="fa-solid fa-floppy-disk text-lg"></i>
+              <span>Simpan Pendaftaran</span>
+            </button>
+            <p class="text-center text-[11px] text-slate-500 mt-2.5">
+              <i class="fa-solid fa-shield-check text-emerald-600 mr-1"></i>
+              Data pendaftaran Anda akan langsung tersimpan ke sistem database terenkripsi pengelola <strong>ffprojectjkt@gmail.com</strong>.
+            </p>
+          </div>
+        </form>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ==================== WRAPPER TAB 2: FORM PERJANJIAN VISIT PROPERTI ==================== -->
+  <div id="mainTabVisit" class="hidden flex-1 py-8 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border-2 border-navy-900/15 overflow-hidden">
+
+      <!-- Kop Surat Resmi -->
+      <div class="navy-gradient text-white px-6 py-6 border-b-4 border-gold-500">
+        <div class="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+          <div class="w-16 h-16 rounded-full shrink-0 bg-black overflow-hidden border-2 border-gold-500 shadow-lg">
+            <svg id="visitLogoSvg" viewBox="0 0 400 400" class="w-full h-full block" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="200" cy="200" r="200" fill="#000000" />
+              <circle cx="200" cy="200" r="184" fill="none" stroke="#FF0000" stroke-width="15" />
+              <circle cx="200" cy="200" r="163" fill="none" stroke="#FFFFFF" stroke-width="11" />
+              <rect x="281" y="132" width="32" height="58" fill="#FF0000" />
+              <rect x="275" y="123" width="44" height="14" fill="#FF0000" />
+              <path d="M 62 198 Q 130 145 200 104 Q 270 145 338 198 L 325 203 Q 262 162 200 125 Q 138 162 75 203 Z" fill="#FF0000" />
+              <rect x="177" y="144" width="20" height="17" fill="#FFFFFF" />
+              <rect x="203" y="144" width="20" height="17" fill="#FFFFFF" />
+              <rect x="177" y="166" width="20" height="17" fill="#FFFFFF" />
+              <rect x="203" y="166" width="20" height="17" fill="#FFFFFF" />
+              <path d="M 56 207 Q 132 166 196 205 L 185 211 Q 132 180 68 214 Z" fill="#FFFFFF" />
+              <path d="M 162 214 Q 248 164 344 207 L 332 214 Q 248 180 177 214 Z" fill="#FFFFFF" />
+              <rect x="64" y="214" width="272" height="8" fill="#FFFFFF" />
+              <text x="200" y="263" text-anchor="middle" fill="#FF0000" font-family="Georgia, 'Times New Roman', serif" font-size="38" font-weight="bold">FFProjectJKT</text>
+              <text x="200" y="309" text-anchor="middle" fill="#FFFFFF" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="bold">&copy; 2025</text>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <span class="inline-block text-[10px] uppercase tracking-widest font-bold text-gold-400 bg-navy-800 px-2.5 py-0.5 rounded-full border border-gold-500/30 mb-1">
+              Dokumen Resmi Survei Lokasi &bull; FFProjectJKT
+            </span>
+            <h2 class="font-display font-extrabold text-xl sm:text-2xl text-white">
+              FORM PERJANJIAN VISIT PROPERTI
+            </h2>
+            <p class="text-xs text-slate-300 mt-1">
+              Pengelola / Pemilik Iklan: <strong class="text-gold-300">FFProjectJKT (ffprojectjkt@gmail.com)</strong> &bull; WA: +62 813-8500-5657
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Keterangan Tujuan Resmi -->
+      <div class="bg-amber-50 border-b border-amber-200 px-6 py-3.5 text-xs sm:text-sm text-navy-900 flex items-start gap-3">
+        <i class="fa-solid fa-envelope-open-text text-gold-600 text-lg mt-0.5 shrink-0"></i>
+        <p class="leading-relaxed">
+          <strong>Tujuan Pengajuan:</strong> Form ini diproses atas nama <strong>Agen / Affiliator</strong> dan ditujukan kepada <strong>Pengelola / Pemilik Iklan (FFProjectJKT &ndash; ffprojectjkt@gmail.com)</strong> untuk disampaikan secara resmi kepada <strong>Pihak Pemilik Properti</strong>.
+        </p>
+      </div>
+
+      <!-- Notifikasi Status Berhasil Simpan PDF -->
+      <div id="visitPdfSuccessBanner" class="hidden mx-6 mt-6 p-4 rounded-xl bg-emerald-50 border-2 border-emerald-500 text-emerald-900 text-xs sm:text-sm flex items-start gap-3">
+        <i class="fa-solid fa-circle-check text-emerald-600 text-xl mt-0.5 shrink-0"></i>
+        <div class="flex-1">
+          <strong class="block text-sm">File PDF Perjanjian Visit Berhasil Disimpan!</strong>
+          <p class="mt-0.5">
+            Dokumen telah otomatis diunduh ke penyimpanan lokal perangkat Anda dengan nama file:
+            <span id="visitSavedFileName" class="font-mono font-bold bg-white px-2 py-0.5 rounded border border-emerald-300 inline-block mt-1"></span>
+          </p>
+          <p class="text-[11px] text-emerald-700 mt-1">Seluruh kolom isian form telah dikosongkan kembali untuk pengajuan berikutnya.</p>
+        </div>
+        <button type="button" onclick="document.getElementById('visitPdfSuccessBanner').classList.add('hidden')" class="text-emerald-700 hover:text-emerald-950">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Formulir Isian Perjanjian Visit -->
+      <form id="visitPropertyForm" onsubmit="handleVisitFormSubmit(event)" class="p-6 sm:p-8 space-y-6">
+
+        <!-- BAGIAN A: DATA AGEN / AFFILIATOR -->
+        <div class="space-y-4">
+          <h3 class="font-display font-bold text-sm uppercase tracking-wider text-navy-900 border-b-2 border-gold-500 pb-1.5 flex items-center gap-2">
+            <i class="fa-solid fa-id-badge text-gold-600"></i> A. Data Agen / Affiliator Pengaju
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="visitNamaAgen" class="block text-xs sm:text-sm font-bold text-navy-900 mb-1">
+                Nama Lengkap Agen / Affiliator <span class="text-rose-600">*</span>
+              </label>
+              <input type="text" id="visitNamaAgen" required placeholder="Contoh: Budi Santoso" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-navy-800 focus:ring-2 focus:ring-gold-500/40 outline-none text-sm" />
+            </div>
+            <div>
+              <label for="visitWaAgen" class="block text-xs sm:text-sm font-bold text-navy-900 mb-1">
+                Nomor WhatsApp Agen <span class="text-rose-600">*</span>
+              </label>
+              <input type="tel" id="visitWaAgen" required placeholder="Contoh: 081234567890" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-navy-800 focus:ring-2 focus:ring-gold-500/40 outline-none text-sm" />
+            </div>
+            <div>
+              <label for="visitIdAgen" class="block text-xs sm:text-sm font-bold text-navy-900 mb-1">
+                ID Registrasi Affiliator (Opsional)
+              </label>
+              <input type="text" id="visitIdAgen" placeholder="Contoh: FFP-2026-0001" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-navy-800 focus:ring-2 focus:ring-gold-500/40 outline-none text-sm font-mono" />
+            </div>
+            <div>
+              <label for="visitEmailAgen" class="block text-xs sm:text-sm font-bold text-navy-900 mb-1">
+                Email Agen / Affiliator <span class="text-rose-600">*</span>
+              </label>
+              <input type="email" id="visitEmailAgen" required placeholder="Contoh: budi@gmail.com" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-navy-800 focus:ring-2 focus:ring-gold-500/40 outline-none text-sm" />
+            </div>
+          </div>
+        </div>
+
+        <!-- BAGIAN B: DATA CALON PEMBELI (BUYER) -->
+        <div class="space-y-4">
+          <h3 class="font-display font-bold text-sm uppercase tracking-wider text-navy-900 border-b-2 border-gold-500 pb-1.5 flex items-center gap-2">
+            <i class="fa-solid fa-user-tie text-gold-600"></i> B. Data Calon Pembeli (Buyer)
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="visitNamaBuyer" class="block text-xs sm:text-sm font-bold text-navy-900 mb-1">
+                Nama Lengkap Calon Pembeli <span class="text-rose-600">*</span>
+              </label>
+              <input type="text" id="visitNamaBuyer" required placeholder="Contoh: H. Ahmad Fauzi" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-navy-800 focus:ring-2 focus:ring-gold-500/40 outline-none text-sm" />
+            </div>
+            <div>
+              <label for="visitWaBuyer" class="block text-xs sm:text-sm font-bold text-navy-900 mb-1">
+                Nomor HP / WhatsApp Calon Pembeli <span class="text-rose-600">*</span>
+              </label>
+              <input type="tel" id="visitWaBuyer" required placeholder="Contoh: 081198765432" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-navy-800 focus:ring-2 focus:ring-gold-500/40 outline-none text-sm" />
+            </div>
+            <div>
+              <label for="visitDomisiliBuyer" class="block text-xs sm:text-sm font-bold text-navy-900 mb-1">
+                Alamat / Domisili Calon Pembeli <span class="text-rose-600">*</span>
+              </label>
+              <input type="text" id="visitDomisiliBuyer" required placeholder="Contoh: Bandung / Jakarta Selatan" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-navy-800 focus:ring-2 focus:ring-gold-500/40 outline-none text-sm" />
+            </div>
+            <div>
+              <label for="visitKtpBuyer" class="block text-xs sm:text-sm font-bold text-navy-900 mb-1">
+                No. KTP / Identitas (Opsional)
+              </label>
+              <input type="text" id="visitKtpBuyer" placeholder="Opsional untuk verifikasi pemilik" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-navy-800 focus:ring-2 focus:ring-gold-500/40 outline-none text-sm" />
+            </div>
+          </div>
+        </div>
+
+        <!-- BAGIAN C: DATA PROPERTI & JADWAL VISIT -->
+        <div class="space-y-4">
+          <h3 class="font-display font-bold text-sm uppercase tracking-wider text-navy-900 border-b-2 border-gold-500 pb-1.5 flex items-center gap-2">
+            <i class="fa-solid fa-house-chimney text-gold-600"></i> C. Data Properti &amp; Jadwal Visit
+          </h3>
+
+          <!-- Preset Properti FFProjectJKT -->
+          <div>
+            <label for="visitPropertiPreset" class="block text-xs sm:text-sm font-bold text-navy-900 mb-1">
+              Pilih Cepat Listing Properti FFProjectJKT (Opsional)
+            </label>
+            <select id="visitPropertiPreset" onchange="handleVisitPropertiPreset(this.value)" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-300 focus:border-navy-800 outline-none text-sm font-semibold text-navy-900">
+              <option value="">-- Ketik Manual / Pilih Listing Properti --</option>
+              <option value="jayagiri">Hotel Jayagiri &amp; Boutique — Cikole, Lembang (Rp 14 Miliar)</option>
+              <option value="pondokasri">Pondok Asri Purwakarta — LT 3.214 m² (Rp 8 Miliar)</option>
+              <option value="plosokuning">Rumah 2 Lantai Plosokuning IV — Sleman, Yogyakarta (Rp 2,6 Miliar)</option>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="visitNamaProperti" class="block text-xs sm:text-sm font-bold text-navy-900 mb-1">
+                Nama / Jenis Properti <span class="text-rose-600">*</span>
+              </label>
+              <input type="text" id="visitNamaProperti" required placeholder="Contoh: Hotel Jayagiri & Boutique" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-navy-800 focus:ring-2 focus:ring-gold-500/40 outline-none text-sm" />
+            </div>
+            <div>
+              <label for="visitHargaProperti" class="block text-xs sm:text-sm font-bold text-navy-900 mb-1">
+                Harga Penawaran Properti <span class="text-rose-600">*</span>
+              </label>
+              <input type="text" id="visitHargaProperti" required placeholder="Contoh: Rp 14.000.000.000" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-navy-800 focus:ring-2 focus:ring-gold-500/40 outline-none text-sm" />
+            </div>
+            <div class="md:col-span-2">
+              <label for="visitAlamatProperti" class="block text-xs sm:text-sm font-bold text-navy-900 mb-1">
+                Alamat Lengkap Lokasi Properti <span class="text-rose-600">*</span>
+              </label>
+              <input type="text" id="visitAlamatProperti" required placeholder="Masukkan alamat lengkap properti yang akan divisit" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-navy-800 focus:ring-2 focus:ring-gold-500/40 outline-none text-sm" />
+            </div>
+            <div>
+              <label for="visitTanggal" class="block text-xs sm:text-sm font-bold text-navy-900 mb-1">
+                Tanggal Rencana Visit <span class="text-rose-600">*</span>
+              </label>
+              <input type="date" id="visitTanggal" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-navy-800 focus:ring-2 focus:ring-gold-500/40 outline-none text-sm" />
+            </div>
+            <div>
+              <label for="visitJam" class="block text-xs sm:text-sm font-bold text-navy-900 mb-1">
+                Jam Rencana Visit (WIB) <span class="text-rose-600">*</span>
+              </label>
+              <input type="time" id="visitJam" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-navy-800 focus:ring-2 focus:ring-gold-500/40 outline-none text-sm" />
+            </div>
+            <div class="md:col-span-2">
+              <label for="visitCatatan" class="block text-xs sm:text-sm font-bold text-navy-900 mb-1">
+                Catatan Tambahan (Opsional)
+              </label>
+              <textarea id="visitCatatan" rows="2" placeholder="Contoh: Calon pembeli membawa keluarga / minta bertemu langsung dengan pemilik" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-navy-800 focus:ring-2 focus:ring-gold-500/40 outline-none text-sm"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- BAGIAN D: KLAUSUL STANDAR PERJANJIAN VISIT PROPERTI -->
+        <div class="bg-slate-50 rounded-xl border border-slate-200 p-4 space-y-2 text-xs text-slate-700 leading-relaxed">
+          <h4 class="font-display font-bold text-navy-900 text-xs sm:text-sm flex items-center gap-1.5">
+            <i class="fa-solid fa-scale-balanced text-gold-600"></i> Klausul Standar Perjanjian Visit Properti:
+          </h4>
+          <ol class="list-decimal pl-4 space-y-1">
+            <li><strong>Pengakuan Referensi (Protection Period):</strong> Calon pembeli yang tercantum di atas diakui secara sah sebagai referensi dari Agen/Affiliator melalui Pengelola FFProjectJKT selama 90 (sembilan puluh) hari kalender sejak tanggal visit.</li>
+            <li><strong>Larangan Transaksi Langsung (Anti-Bypass):</strong> Calon pembeli dan/atau perwakilannya tidak diperkenankan melakukan negosiasi atau transaksi langsung dengan Pemilik Properti tanpa melalui Pengelola (FFProjectJKT).</li>
+            <li><strong>Prosedur Survei &amp; Etika:</strong> Kunjungan lokasi wajib didampingi atau dikoordinasikan terlebih dahulu dengan pihak Pengelola FFProjectJKT, serta dilarang melakukan mark-up harga tanpa izin tertulis.</li>
+            <li><strong>Kerahasiaan Data:</strong> Seluruh data dalam dokumen ini hanya digunakan untuk keperluan administrasi survei lokasi dan transaksi jual beli properti terkait.</li>
+          </ol>
+        </div>
+
+        <!-- Checkbox Persetujuan -->
+        <label class="flex items-start gap-3 cursor-pointer select-none">
+          <input type="checkbox" id="visitSetuju" required class="w-5 h-5 mt-0.5 accent-navy-900 rounded shrink-0" />
+          <span class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+            Saya menyatakan data pengajuan visit di atas adalah benar dan menyetujui seluruh <strong>Klausul Standar Perjanjian Visit Properti FFProjectJKT</strong>. <span class="text-rose-600">*</span>
+          </span>
+        </label>
+
+        <!-- Tombol Simpan & Unduh PDF -->
+        <button
+          type="submit"
+          class="w-full py-4 px-6 rounded-xl gold-gradient text-navy-950 font-display font-extrabold text-sm sm:text-base shadow-lg hover:shadow-xl hover:brightness-105 active:scale-[0.99] transition flex items-center justify-center gap-2.5 cursor-pointer"
+        >
+          <i class="fa-solid fa-file-pdf text-lg"></i>
+          <span>SIMPAN &amp; UNDUH PDF PERJANJIAN VISIT</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER + AKSES ADMIN TERSEMBUNYI ==================== -->
+  <footer class="bg-navy-950 text-slate-400 border-t border-gold-500/30 py-6 px-4 sm:px-6 mt-12">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+      <div class="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
+        <div class="w-11 h-11 rounded-full shrink-0 bg-black overflow-hidden border border-gold-500/40">
+          <svg viewBox="0 0 400 400" class="w-full h-full block" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="200" cy="200" r="200" fill="#000000" />
+            <circle cx="200" cy="200" r="184" fill="none" stroke="#FF0000" stroke-width="15" />
+            <circle cx="200" cy="200" r="163" fill="none" stroke="#FFFFFF" stroke-width="11" />
+            <rect x="281" y="132" width="32" height="58" fill="#FF0000" />
+            <rect x="275" y="123" width="44" height="14" fill="#FF0000" />
+            <path d="M 62 198 Q 130 145 200 104 Q 270 145 338 198 L 325 203 Q 262 162 200 125 Q 138 162 75 203 Z" fill="#FF0000" />
+            <rect x="177" y="144" width="20" height="17" fill="#FFFFFF" />
+            <rect x="203" y="144" width="20" height="17" fill="#FFFFFF" />
+            <rect x="177" y="166" width="20" height="17" fill="#FFFFFF" />
+            <rect x="203" y="166" width="20" height="17" fill="#FFFFFF" />
+            <path d="M 56 207 Q 132 166 196 205 L 185 211 Q 132 180 68 214 Z" fill="#FFFFFF" />
+            <path d="M 162 214 Q 248 164 344 207 L 332 214 Q 248 180 177 214 Z" fill="#FFFFFF" />
+            <rect x="64" y="214" width="272" height="8" fill="#FFFFFF" />
+            <text x="200" y="263" text-anchor="middle" fill="#FF0000" font-family="Georgia, 'Times New Roman', serif" font-size="38" font-weight="bold">FFProjectJKT</text>
+            <text x="200" y="309" text-anchor="middle" fill="#FFFFFF" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="bold">&copy; 2025</text>
+          </svg>
+        </div>
+        <div>
+          <p class="text-white font-semibold">&copy; 2025&ndash;2026 FFProjectJKT Property Affiliate Network. All Rights Reserved.</p>
+          <div class="flex flex-wrap items-center justify-center sm:justify-start gap-x-3 gap-y-1 text-slate-400 mt-1">
+            <a href="mailto:ffprojectjkt@gmail.com" class="inline-flex items-center gap-1.5 text-gold-400 hover:text-gold-300 transition">
+              <i class="fa-solid fa-envelope"></i>
+              <span>ffprojectjkt@gmail.com</span>
+            </a>
+            <span class="hidden sm:inline text-slate-600">&bull;</span>
+            <a href="https://wa.me/6281385005657" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 transition font-medium">
+              <i class="fa-brands fa-whatsapp text-sm"></i>
+              <span>+62 813-8500-5657</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button type="button" onclick="togglePromoModal(this)" class="text-slate-300 hover:text-gold-400 transition">
+          <i class="fa-solid fa-bullhorn mr-1"></i> Materi Iklan
+        </button>
+        <span class="text-slate-700">|</span>
+        <button type="button" onclick="openAdminPinModal()" class="text-slate-500 hover:text-gold-400 transition flex items-center gap-1" title="Akses Khusus Pengelola FFProjectJKT">
+          <i class="fa-solid fa-key"></i> Admin Pengelola
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== MODAL 1: NOTIFIKASI SUKSES PENDAFTARAN ==================== -->
+  <div id="successModal" class="fixed inset-0 bg-navy-950/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full border-2 border-gold-500 shadow-2xl overflow-hidden animate-[fadeIn_0.2s_ease-out]">
+      <div class="navy-gradient p-6 text-center border-b-2 border-gold-500">
+        <div class="w-16 h-16 rounded-full gold-gradient text-navy-950 flex items-center justify-center text-3xl mx-auto mb-3 shadow-lg">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <h3 class="font-display font-extrabold text-xl text-white">Pendaftaran Berhasil Disimpan!</h3>
+        <p class="text-xs text-gold-300 mt-1">Selamat Bergabung di Keluarga Affiliator FFProjectJKT</p>
+      </div>
+      <div class="p-6 space-y-4 text-sm text-slate-700">
+        <p>
+          Terima kasih, <strong id="modalNamaPendaftar" class="text-navy-900">Calon Affiliator</strong>! Data Anda telah tersimpan aman ke sistem database pengelola <strong>ffprojectjkt@gmail.com</strong>.
+        </p>
+        <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 text-xs space-y-1">
+          <div class="flex justify-between">
+            <span class="text-slate-500">ID Registrasi:</span>
+            <span id="modalIdRegistrasi" class="font-mono font-bold text-navy-900">FFP-2026-001</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500">Status Database:</span>
+            <span class="text-emerald-700 font-bold"><i class="fa-solid fa-circle-check mr-1"></i>Tersimpan &amp; Terkunci</span>
+          </div>
+        </div>
+        <p class="text-xs text-slate-500">
+          Untuk menjaga privasi dan keamanan seluruh mitra, daftar pendaftar tidak ditampilkan secara publik di halaman ini. Anda dapat langsung menyalin materi iklan baris &amp; banner promosi kami sekarang!
+        </p>
+        <div class="flex flex-col sm:flex-row gap-2.5 pt-2">
+          <button type="button" onclick="closeSuccessModal(); togglePromoModal();" class="flex-1 py-2.5 px-4 rounded-xl bg-navy-900 text-gold-400 font-bold text-xs sm:text-sm hover:bg-navy-800 transition">
+            <i class="fa-solid fa-bullhorn mr-1"></i> Ambil Kit Promosi
+          </button>
+          <button type="button" onclick="closeSuccessModal()" class="flex-1 py-2.5 px-4 rounded-xl border border-slate-300 text-slate-700 font-semibold text-xs sm:text-sm hover:bg-slate-100 transition">
+            Tutup
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 2: KIT PROMOSI (4 TAB) ==================== -->
+  <div id="promoModal" class="fixed inset-0 bg-navy-950/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-3xl w-full border-2 border-gold-500 shadow-2xl overflow-hidden my-8">
+      <!-- Header Modal -->
+      <div class="navy-gradient px-6 py-4 border-b-2 border-gold-500 flex items-center justify-between">
+        <h3 class="font-display font-bold text-base sm:text-lg text-white flex items-center gap-2">
+          <i class="fa-solid fa-bullhorn text-gold-400"></i>
+          KIT PROMOSI AFFILIATOR (BANNER, VIDEO &amp; COPYWRITING)
+        </h3>
+        <button type="button" onclick="togglePromoModal()" class="text-slate-300 hover:text-white text-xl">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Navigasi Kit Promosi (Dropdown) -->
+      <div class="bg-slate-100 px-6 py-3.5 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <label for="promoTabSelect" class="text-xs sm:text-sm font-bold text-navy-900 flex items-center gap-1.5 shrink-0">
+          <i class="fa-solid fa-layer-group text-gold-600"></i> Pilih Materi Promosi:
+        </label>
+        <div class="relative w-full sm:w-80">
+          <select
+            id="promoTabSelect"
+            onchange="switchPromoTab(this.value)"
+            class="w-full appearance-none pl-3.5 pr-9 py-2.5 rounded-xl bg-white border-2 border-navy-900/20 hover:border-gold-500 focus:border-navy-900 focus:ring-2 focus:ring-gold-500/30 font-bold text-xs sm:text-sm text-navy-900 outline-none cursor-pointer shadow-sm transition"
+          >
+            <option value="properti">🏨 Hotel Jayagiri &amp; Boutique (14 M)</option>
+            <option value="pondokAsri">🏡 Pondok Asri Purwakarta (8 M)</option>
+            <option value="plosokuning">🏠 Rumah 2 Lantai Plosokuning IV (2,6 M)</option>
+            <option value="rekrutmen">👥 Banner &amp; Teks Rekrutmen Affiliator</option>
+          </select>
+          <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-navy-900">
+            <i class="fa-solid fa-chevron-down text-xs"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="p-6 max-h-[75vh] overflow-y-auto">
+
+        <!-- ==================== TAB 1: LISTING HOTEL JAYAGIRI ==================== -->
+        <div id="promoTabProperti" class="space-y-6">
+          <div class="rounded-xl bg-gradient-to-r from-navy-900 to-navy-800 text-white p-4 border border-gold-500/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-gold-400 block">HOT LISTING &bull; CIKOLE, LEMBANG</span>
+              <h4 class="font-display font-bold text-base sm:text-lg">Hotel Jayagiri &amp; Boutique &mdash; Rp 14 Miliar</h4>
+            </div>
+            <div class="bg-navy-950/70 border border-gold-400/40 rounded-lg px-3.5 py-2 text-left sm:text-right shrink-0">
+              <span class="text-[10px] text-slate-300 block">Estimasi Komisi Affiliator (0,2%)</span>
+              <span class="font-display font-extrabold text-emerald-400 text-base">Rp 28.000.000</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-navy-900">1. Poster Promosi Hotel Jayagiri &amp; Boutique</span>
+              <a
+                href="banner-hotel-jayagiri.jpeg"
+                download="Banner_Hotel_Jayagiri_Lembang_FFProjectJKT.jpeg"
+                class="text-xs font-bold px-3 py-1.5 rounded-lg gold-gradient text-navy-950 shadow hover:opacity-90 transition inline-flex items-center gap-1"
+              >
+                <i class="fa-solid fa-download"></i> Unduh Poster (JPG)
+              </a>
+            </div>
+            <div class="rounded-xl overflow-hidden border-2 border-navy-900 shadow-md bg-slate-100">
+              <img
+                src="banner-hotel-jayagiri.jpeg"
+                alt="Poster Promosi Hotel Jayagiri & Boutique Lembang - FFProjectJKT"
+                class="w-full h-auto block"
+              />
+            </div>
+          </div>
+
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-navy-900 block mb-2">2. Akses Cepat Video Marketing &amp; Katalog</span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+              <a href="https://bit.ly/HotelJayagiriLembang" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-navy-900 hover:text-white border border-slate-200 transition group">
+                <i class="fa-brands fa-youtube text-red-600 text-lg shrink-0"></i>
+                <div>
+                  <strong class="block">Video Hotel Jayagiri Lengkap</strong>
+                  <span class="text-[11px] text-slate-500 group-hover:text-gold-300">Durasi 03.42 menit &bull; bit.ly/HotelJayagiriLembang</span>
+                </div>
+              </a>
+              <a href="https://bit.ly/IklanHotelJayagiri" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-navy-900 hover:text-white border border-slate-200 transition group">
+                <i class="fa-solid fa-clapperboard text-gold-600 text-lg shrink-0"></i>
+                <div>
+                  <strong class="block">Video Iklan Singkat (Reels/TikTok)</strong>
+                  <span class="text-[11px] text-slate-500 group-hover:text-gold-300">Durasi 00.36 menit &bull; bit.ly/IklanHotelJayagiri</span>
+                </div>
+              </a>
+              <a href="https://bit.ly/ReviewHotelJayagiri" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-navy-900 hover:text-white border border-slate-200 transition group">
+                <i class="fa-solid fa-video text-navy-700 group-hover:text-gold-400 text-lg shrink-0"></i>
+                <div>
+                  <strong class="block">Video Review Hotel Jayagiri</strong>
+                  <span class="text-[11px] text-slate-500 group-hover:text-gold-300">Durasi 02.52 menit &bull; bit.ly/ReviewHotelJayagiri</span>
+                </div>
+              </a>
+              <a href="https://bit.ly/FFProjectJKT" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-navy-900 hover:text-white border border-slate-200 transition group">
+                <i class="fa-solid fa-book-open text-emerald-600 group-hover:text-gold-400 text-lg shrink-0"></i>
+                <div>
+                  <strong class="block">Catalog Product FFProjectJKT</strong>
+                  <span class="text-[11px] text-slate-500 group-hover:text-gold-300">Lihat semua properti &bull; bit.ly/FFProjectJKT</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-navy-900">3. Teks Iklan Hotel Jayagiri Siap Copy-Paste</span>
+              <button type="button" onclick="copyTextById('teksIklanJayagiri', 'copyStatusJayagiri')" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-navy-900 text-gold-400 hover:bg-navy-800 transition">
+                <i class="fa-solid fa-copy mr-1"></i> Salin Teks Iklan
+              </button>
+            </div>
+            <textarea id="teksIklanJayagiri" rows="12" readonly class="w-full p-3.5 rounded-xl bg-slate-50 border border-slate-300 text-xs sm:text-sm text-slate-800 leading-relaxed focus:outline-none">🚨 OPPORTUNITY INVESTMENT – LEMBANG! 🚨
+
+🏨 HOTEL JAYAGIRI & BOUTIQUE
+✨ FULLY FURNISHED | HOTEL AKTIF | LOKASI PREMIUM
+
+🌟 KESEMPATAN EMAS BAGI INVESTOR!
+
+Miliki properti komersial berupa hotel dan boutique/factory outlet yang sudah beroperasi di kawasan wisata Cikole, Lembang.
+
+Bukan sekadar membeli bangunan, tetapi memiliki peluang usaha dengan aset properti bernilai strategis di salah satu kawasan wisata favorit Jawa Barat.
+
+💎 NILAI LEBIH PROPERTI
+✅ Hotel masih aktif beroperasi.
+✅ Lokasi tepat di jalan utama (Mainroad).
+✅ Memiliki 20 kamar dengan berbagai tipe.
+✅ Dilengkapi boutique / factory outlet.
+✅ Coffee shop dan fasilitas penunjang.
+✅ Potensi pendapatan dari sektor hospitality.
+✅ Peluang investasi dan peningkatan nilai aset jangka panjang.
+
+📐 DATA & SPESIFIKASI
+📜 Legalitas: SHM
+🌳 Luas Tanah: 1.241 m²
+🏢 Luas Bangunan: ±800 m²
+🏗️ Bangunan: 2 lantai
+🛏️ Total Kamar: 20 kamar
+📅 Tahun Bangunan: 2012
+🛋️ Kondisi: Furnished
+
+🛌 KOMPOSISI KAMAR HOTEL
+
+🏨 Bagian Depan:
+- 2 Standard Room
+- 3 Deluxe Room
+- 1 Family Room
+
+🏡 Bagian Belakang:
+- 2 Deluxe Room
+- 8 Sweet Deluxe
+- 1 Villa (2 kamar)
+- 1 Family Room
+
+☕ FASILITAS BISNIS & PENUNJANG
+- Meeting Room
+- Factory Outlet / Boutique
+- Coffee Shop
+- Pantry
+- Laundry
+
+📍 LOKASI PREMIUM – MAINROAD CIKOLE LEMBANG
+
+Berada di Jl. Raya Tangkuban Parahu, dengan akses strategis menuju berbagai destinasi wisata favorit:
+
+🌲 Grafika Cikole
+🌲 Sindang Reret
+🌲 Lembah Dewata
+🌲 Gunung Tangkuban Perahu
+🌲 Wisata Off Road Sukawarna
+🌲 Kopi Gunung
+🌲 Dermaga Sunda
+Dan berbagai destinasi wisata lainnya.
+
+💰 PENAWARAN HARGA TERBAIK!
+🔥 Rp14.000.000.000 (14 MILIAR)
+🤝 NEGO LANGSUNG DENGAN PEMILIK!
+
+📍 HOTEL JAYAGIRI
+Jl. Raya Tangkuban Parahu No.217A, Cikole, Lembang, Kabupaten Bandung Barat, Jawa Barat 40391.
+
+📞 INFORMASI & SURVEI LOKASI:
+Hubungi kami untuk informasi dan penawaran lebih lanjut.
+👤 Contact Person: Ferry Ferdyana (FFProjectJKT)
+📞 Telp/WA: +62 813 8500 5657
+✉️ Email: ffprojectjkt@gmail.com
+📚 Catalog Product: https://bit.ly/FFProjectJKT
+
+🎬 VIDEO DIGITAL MARKETING:
+Video Hotel JAYAGIRI Lengkap:
+(Time:00.00:03.42, durasi: 03.42 menit),
+https://bit.ly/HotelJayagiriLembang
+
+Video Iklan Hotel JAYAGIRI:
+(Time:00.13:00.48, durasi: 0.36 menit),
+https://bit.ly/IklanHotelJayagiri
+
+Video Review Hotel JAYAGIRI:
+(Time:00.50:03.42, durasi: 2.52 menit),
+https://bit.ly/ReviewHotelJayagiri
+
+📢 SERIOUS BUYER ONLY!
+Jangan lewatkan kesempatan memiliki hotel aktif sekaligus aset investasi di kawasan wisata Lembang.
+
+🤝 Ayo survei lokasi, ngobrol santai, dan kita bangun kesepakatan terbaik sambil silaturahmi!
+
+✨ ASET STRATEGIS, PELUANG BISNIS MENARIK, INVESTASI JANGKA PANJANG.
+
+#creatorsearchinsights #villa #rumah  #ffprojectjkt #fyp</textarea>
+            <p id="copyStatusJayagiri" class="hidden text-xs text-emerald-600 font-bold mt-1.5">
+              <i class="fa-solid fa-check-circle mr-1"></i>Teks iklan Hotel Jayagiri berhasil disalin ke clipboard!
+            </p>
+          </div>
+        </div>
+
+        <!-- ==================== TAB 2: LISTING PONDOK ASRI PURWAKARTA ==================== -->
+        <div id="promoTabPondokAsri" class="hidden space-y-6">
+          <div class="rounded-xl bg-gradient-to-r from-navy-900 to-navy-800 text-white p-4 border border-gold-500/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-gold-400 block">HOT LISTING &bull; PONDOK SALAM, PURWAKARTA</span>
+              <h4 class="font-display font-bold text-base sm:text-lg">Pondok Asri Purwakarta (LT 3.214 m&sup2;) &mdash; Rp 8 Miliar</h4>
+            </div>
+            <div class="bg-navy-950/70 border border-gold-400/40 rounded-lg px-3.5 py-2 text-left sm:text-right shrink-0">
+              <span class="text-[10px] text-slate-300 block">Estimasi Komisi Affiliator (0,2%)</span>
+              <span class="font-display font-extrabold text-emerald-400 text-base">Rp 16.000.000</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-navy-900">1. Poster Promosi Pondok Asri Purwakarta</span>
+              <a
+                href="banner-pondok-asri.jpeg"
+                download="Banner_Pondok_Asri_Purwakarta_FFProjectJKT.jpeg"
+                class="text-xs font-bold px-3 py-1.5 rounded-lg gold-gradient text-navy-950 shadow hover:opacity-90 transition inline-flex items-center gap-1"
+              >
+                <i class="fa-solid fa-download"></i> Unduh Poster (JPG)
+              </a>
+            </div>
+            <div class="rounded-xl overflow-hidden border-2 border-navy-900 shadow-md bg-slate-100">
+              <img
+                src="banner-pondok-asri.jpeg"
+                alt="Poster Promosi Pondok Asri Purwakarta - FFProjectJKT"
+                class="w-full h-auto block"
+              />
+            </div>
+          </div>
+
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-navy-900 block mb-2">2. Akses Cepat 7 Video Marketing &amp; Katalog</span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+              <a href="https://bit.ly/VillaPondokAsri" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-navy-900 hover:text-white border border-slate-200 transition group">
+                <i class="fa-brands fa-youtube text-red-600 text-lg shrink-0"></i>
+                <div>
+                  <strong class="block">Video Villa Pondok Asri Lengkap</strong>
+                  <span class="text-[11px] text-slate-500 group-hover:text-gold-300">Durasi 06.42 menit &bull; bit.ly/VillaPondokAsri</span>
+                </div>
+              </a>
+              <a href="https://bit.ly/IklanVillaPondokAsri" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-navy-900 hover:text-white border border-slate-200 transition group">
+                <i class="fa-solid fa-clapperboard text-gold-600 text-lg shrink-0"></i>
+                <div>
+                  <strong class="block">Video Iklan Villa Pondok Asri</strong>
+                  <span class="text-[11px] text-slate-500 group-hover:text-gold-300">Durasi 01.50 menit &bull; bit.ly/IklanVillaPondokAsri</span>
+                </div>
+              </a>
+              <a href="https://bit.ly/VillaDepanPondokAsri" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-navy-900 hover:text-white border border-slate-200 transition group">
+                <i class="fa-solid fa-video text-navy-700 group-hover:text-gold-400 text-lg shrink-0"></i>
+                <div>
+                  <strong class="block">Video Villa Depan</strong>
+                  <span class="text-[11px] text-slate-500 group-hover:text-gold-300">Durasi 00.51 menit &bull; bit.ly/VillaDepanPondokAsri</span>
+                </div>
+              </a>
+              <a href="https://bit.ly/KamarVillaPondokAsri" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-navy-900 hover:text-white border border-slate-200 transition group">
+                <i class="fa-solid fa-bed text-navy-700 group-hover:text-gold-400 text-lg shrink-0"></i>
+                <div>
+                  <strong class="block">Video Kamar Penginapan</strong>
+                  <span class="text-[11px] text-slate-500 group-hover:text-gold-300">Durasi 00.56 menit &bull; bit.ly/KamarVillaPondokAsri</span>
+                </div>
+              </a>
+              <a href="https://bit.ly/GazeboVillaPondokAsri" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-navy-900 hover:text-white border border-slate-200 transition group">
+                <i class="fa-solid fa-water text-sky-600 group-hover:text-gold-400 text-lg shrink-0"></i>
+                <div>
+                  <strong class="block">Video Gazebo &amp; Kolam Pemancingan</strong>
+                  <span class="text-[11px] text-slate-500 group-hover:text-gold-300">Durasi 00.40 menit &bull; bit.ly/GazeboVillaPondokAsri</span>
+                </div>
+              </a>
+              <a href="https://bit.ly/VillaBelakangPondokAsri" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-navy-900 hover:text-white border border-slate-200 transition group">
+                <i class="fa-solid fa-house text-navy-700 group-hover:text-gold-400 text-lg shrink-0"></i>
+                <div>
+                  <strong class="block">Video Villa Belakang</strong>
+                  <span class="text-[11px] text-slate-500 group-hover:text-gold-300">Durasi 01.37 menit &bull; bit.ly/VillaBelakangPondokAsri</span>
+                </div>
+              </a>
+              <a href="https://bit.ly/KegiatanVillaPondokAsri" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-navy-900 hover:text-white border border-slate-200 transition group">
+                <i class="fa-solid fa-people-group text-amber-600 group-hover:text-gold-400 text-lg shrink-0"></i>
+                <div>
+                  <strong class="block">Video Kegiatan di Villa</strong>
+                  <span class="text-[11px] text-slate-500 group-hover:text-gold-300">Durasi 01.17 menit &bull; bit.ly/KegiatanVillaPondokAsri</span>
+                </div>
+              </a>
+              <a href="https://bit.ly/FFProjectJKT" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-navy-900 hover:text-white border border-slate-200 transition group">
+                <i class="fa-solid fa-book-open text-emerald-600 group-hover:text-gold-400 text-lg shrink-0"></i>
+                <div>
+                  <strong class="block">Catalog Product FFProjectJKT</strong>
+                  <span class="text-[11px] text-slate-500 group-hover:text-gold-300">Lihat semua properti &bull; bit.ly/FFProjectJKT</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-navy-900">3. Teks Iklan Pondok Asri Purwakarta Siap Copy-Paste</span>
+              <button type="button" onclick="copyTextById('teksIklanPondokAsri', 'copyStatusPondokAsri')" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-navy-900 text-gold-400 hover:bg-navy-800 transition">
+                <i class="fa-solid fa-copy mr-1"></i> Salin Teks Iklan
+              </button>
+            </div>
+            <textarea id="teksIklanPondokAsri" rows="12" readonly class="w-full p-3.5 rounded-xl bg-slate-50 border border-slate-300 text-xs sm:text-sm text-slate-800 leading-relaxed focus:outline-none">🏡 DIJUAL – PONDOK ASRI PURWAKARTA 🌿
+
+📍 LOKASI STRATEGIS
+Jl. Kapten Halim Terusan, Km. 9,9 No. 2, Desa Salam Mulya, Kecamatan Pondok Salam, Kabupaten Purwakarta.
+
+✨ KEUNGGULAN PROPERTI
+Berada di pinggir jalan raya dengan akses mudah dan dekat berbagai fasilitas:
+🏥 RSU Holistic
+🎓 STIKES Holistic
+🏢 Kantor pemerintahan dan kecamatan
+🌳 Berbagai objek wisata Purwakarta
+
+🌟 POTENSI PENGEMBANGAN
+Dengan luas tanah 3.214 m², bangunan yang telah tersedia, serta suasana alam yang asri, sangat potensial dikembangkan menjadi:
+🏡 Villa & penginapan keluarga
+🏖️ Resort & wisata keluarga
+🏨 Guest house
+🏢 Gedung pertemuan
+🎉 Tempat gathering, reuni & acara keluarga
+📈 Investasi properti jangka panjang
+
+💰 HARGA PENAWARAN: 8M
+
+🌿 Peluang memiliki properti strategis dengan potensi bisnis dan investasi yang menjanjikan di Purwakarta!
+
+📞 Informasi lebih lanjut & survei lokasi:
+Hubungi kami untuk informasi dan penawaran lebih lanjut.
+👤 Contact Person: Ferry Ferdyana (FFProjectJKT)
+📞 Telp/WA: +62 813 8500 5657
+✉️ Email: ffprojectjkt@gmail.com
+📚 Catalog Product: https://bit.ly/FFProjectJKT
+
+🎬 VIDEO DIGITAL MARKETING:
+Video Villa Pondok Asri Lengkap:
+(Time:00.00:06.42, durasi: 06.42 menit),
+https://bit.ly/VillaPondokAsri
+
+Video Iklan Villa Pondok Asri:
+(Time:00.00:02.02, durasi: 01.50 menit),
+https://bit.ly/IklanVillaPondokAsri
+
+Video Villa Depan:
+(Time:02.03:02.38, durasi: 0.51 menit),
+https://bit.ly/VillaDepanPondokAsri
+
+Video Kamar Penginapan:
+(Time:02.39:03.18, durasi: 0.56 menit),
+https://bit.ly/KamarVillaPondokAsri
+
+Video Gazebo dan Kolam Pemancingan:
+(Time:03.19:03.45, durasi: 0.40 menit),
+https://bit.ly/GazeboVillaPondokAsri
+
+Video Villa Belakang:
+(Time:03.46:05.09, durasi: 01.37 menit),
+https://bit.ly/VillaBelakangPondokAsri
+
+Video Kegiatan di Villa:
+(Time:05.10:06.42, durasi: 01.17 menit),
+https://bit.ly/KegiatanVillaPondokAsri
+
+#creatorsearchinsights #villa #rumah  #ffprojectjkt #fyp</textarea>
+            <p id="copyStatusPondokAsri" class="hidden text-xs text-emerald-600 font-bold mt-1.5">
+              <i class="fa-solid fa-check-circle mr-1"></i>Teks iklan Pondok Asri Purwakarta berhasil disalin ke clipboard!
+            </p>
+          </div>
+        </div>
+
+        <!-- ==================== TAB 3: LISTING RUMAH PLOSOKUNING IV ==================== -->
+        <div id="promoTabPlosokuning" class="hidden space-y-6">
+          <div class="rounded-xl bg-gradient-to-r from-navy-900 to-navy-800 text-white p-4 border border-gold-500/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-gold-400 block">EXCLUSIVE PROPERTY &bull; SLEMAN, YOGYAKARTA</span>
+              <h4 class="font-display font-bold text-base sm:text-lg">Rumah 2 Lantai Plosokuning IV (4 KT / 3 KM) &mdash; Rp 2,6 Miliar</h4>
+            </div>
+            <div class="bg-navy-950/70 border border-gold-400/40 rounded-lg px-3.5 py-2 text-left sm:text-right shrink-0">
+              <span class="text-[10px] text-slate-300 block">Estimasi Komisi Affiliator (0,2%)</span>
+              <span class="font-display font-extrabold text-emerald-400 text-base">Rp 5.200.000</span>
+            </div>
+          </div>
+
+          <!-- 1. Poster Rumah Plosokuning IV -->
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-navy-900">1. Poster Promosi Rumah 2 Lantai Plosokuning IV</span>
+              <a
+                href="banner-plosokuning.jpeg"
+                download="Banner_Rumah_Plosokuning_IV_Yogyakarta_FFProjectJKT.jpeg"
+                class="text-xs font-bold px-3 py-1.5 rounded-lg gold-gradient text-navy-950 shadow hover:opacity-90 transition inline-flex items-center gap-1"
+              >
+                <i class="fa-solid fa-download"></i> Unduh Poster (JPG)
+              </a>
+            </div>
+            <div class="rounded-xl overflow-hidden border-2 border-navy-900 shadow-md bg-slate-100">
+              <img
+                src="banner-plosokuning.jpeg"
+                alt="Poster Promosi Rumah 2 Lantai Plosokuning IV Yogyakarta - FFProjectJKT"
+                class="w-full h-auto block"
+              />
+            </div>
+          </div>
+
+          <!-- 2. Link Video Digital Marketing & Katalog -->
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-navy-900 block mb-2">2. Akses Cepat Video Marketing &amp; Katalog</span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+              <a href="https://bit.ly/RumahPlosokuning" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-navy-900 hover:text-white border border-slate-200 transition group">
+                <i class="fa-brands fa-youtube text-red-600 text-lg shrink-0"></i>
+                <div>
+                  <strong class="block">Video Rumah Plosokuning IV Lengkap</strong>
+                  <span class="text-[11px] text-slate-500 group-hover:text-gold-300">Durasi 02.23 menit &bull; bit.ly/RumahPlosokuning</span>
+                </div>
+              </a>
+              <a href="https://bit.ly/FFProjectJKT" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-navy-900 hover:text-white border border-slate-200 transition group">
+                <i class="fa-solid fa-book-open text-emerald-600 group-hover:text-gold-400 text-lg shrink-0"></i>
+                <div>
+                  <strong class="block">Catalog Product FFProjectJKT</strong>
+                  <span class="text-[11px] text-slate-500 group-hover:text-gold-300">Lihat semua properti &bull; bit.ly/FFProjectJKT</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <!-- 3. Teks Iklan Rumah Plosokuning IV Siap Copy-Paste -->
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-navy-900">3. Teks Iklan Rumah Plosokuning IV Siap Copy-Paste</span>
+              <button type="button" onclick="copyTextById('teksIklanPlosokuning', 'copyStatusPlosokuning')" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-navy-900 text-gold-400 hover:bg-navy-800 transition">
+                <i class="fa-solid fa-copy mr-1"></i> Salin Teks Iklan
+              </button>
+            </div>
+            <textarea id="teksIklanPlosokuning" rows="12" readonly class="w-full p-3.5 rounded-xl bg-slate-50 border border-slate-300 text-xs sm:text-sm text-slate-800 leading-relaxed focus:outline-none">🏡✨ EXCLUSIVE PROPERTY FOR SALE
+RUMAH 2 LANTAI – PLOSOKUNING IV
+📍 Minomartani, Ngaglik, Sleman, Yogyakarta
+
+🌟 HUNIAN LUAS, NYAMAN, DAN BERNILAI INVESTASI
+
+Miliki kesempatan istimewa untuk memiliki rumah 2 lantai dengan ruang yang luas dan desain hunian yang mendukung kenyamanan keluarga.
+
+Berlokasi di kawasan Plosokuning IV, Sleman, properti ini dapat menjadi pilihan ideal sebagai tempat tinggal maupun aset investasi jangka panjang.
+
+💎 PROPERTY DETAILS
+
+🏠 Tipe Properti: Rumah 2 Lantai
+🛏️ Kamar Tidur: 4
+🚿 Kamar Mandi: 3
+📐 Luas Tanah: 145 m²
+🏗️ Luas Bangunan: 290 m²
+
+📍 PREMIUM LOCATION
+
+Jalan Plosokuning IV, Minomartani, Kecamatan Ngaglik, Kabupaten Sleman, Daerah Istimewa Yogyakarta.
+
+💰 OFFERING PRICE: 2.6 M
+
+✨ YOUR NEXT PROPERTY INVESTMENT
+
+Hunian luas untuk keluarga tercinta sekaligus pilihan aset properti untuk masa depan.
+
+📞 PRIVATE INQUIRY & PROPERTY VIEWING
+👤 Contact Person: Ferry Ferdyana (FFProjectJKT)
+📞 Telp/WA: +62 813 8500 5657
+✉️ Email: ffprojectjkt@gmail.com
+📚 Catalog Product: https://bit.ly/FFProjectJKT
+
+Jadwalkan kunjungan Anda dan lihat langsung potensi properti ini!
+
+🏡 OWN YOUR SPACE. INVEST IN YOUR FUTURE.
+
+🎬 VIDEO DIGITAL MARKETING
+Video Rumah Plosokuning IV Lengkap:
+(Time:00.00:02.23, durasi: 02.23 menit),
+https://bit.ly/RumahPlosokuning
+
+#jual #rumah #rumahimpian #muslim  #yogyakarta</textarea>
+            <p id="copyStatusPlosokuning" class="hidden text-xs text-emerald-600 font-bold mt-1.5">
+              <i class="fa-solid fa-check-circle mr-1"></i>Teks iklan Rumah Plosokuning IV berhasil disalin ke clipboard!
+            </p>
+          </div>
+        </div>
+
+        <!-- ==================== TAB 4: REKRUTMEN AFFILIATOR ==================== -->
+        <div id="promoTabRekrutmen" class="hidden space-y-6">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-navy-900">1. Desain Banner Iklan Rekrutmen Affiliator</span>
+              <button type="button" onclick="downloadBannerPng()" class="text-xs font-bold px-3 py-1.5 rounded-lg gold-gradient text-navy-950 shadow hover:opacity-90 transition">
+                <i class="fa-solid fa-download mr-1"></i> Unduh Banner (PNG)
+              </button>
+            </div>
+            <div id="bannerContainer" class="rounded-xl overflow-hidden border-2 border-gold-500 shadow-lg bg-black">
+              <svg id="promoBannerSvg" viewBox="0 0 900 420" class="w-full h-auto block" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <!-- Gradasi Emas Metalik -->
+                  <linearGradient id="goldHeroGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#FFF2B2" />
+                    <stop offset="30%" stop-color="#F5C451" />
+                    <stop offset="55%" stop-color="#D4AF37" />
+                    <stop offset="80%" stop-color="#FCE49C" />
+                    <stop offset="100%" stop-color="#9A7318" />
+                  </linearGradient>
+                  <linearGradient id="goldTextGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#C89B2B" />
+                    <stop offset="50%" stop-color="#FDE59B" />
+                    <stop offset="100%" stop-color="#C89B2B" />
+                  </linearGradient>
+                  <linearGradient id="goldBorderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#F5C451" />
+                    <stop offset="50%" stop-color="#9E791E" />
+                    <stop offset="100%" stop-color="#FCE292" />
+                  </linearGradient>
+                  <!-- Pola Geometris Art Deco Halus -->
+                  <pattern id="artDecoPattern" width="60" height="60" patternUnits="userSpaceOnUse">
+                    <path d="M 30 0 L 60 30 L 30 60 L 0 30 Z" fill="none" stroke="#D4AF37" stroke-width="0.8" stroke-opacity="0.13" />
+                    <path d="M 30 10 L 50 30 L 30 50 L 10 30 Z" fill="none" stroke="#D4AF37" stroke-width="0.6" stroke-opacity="0.09" />
+                    <circle cx="30" cy="30" r="2.2" fill="#D4AF37" fill-opacity="0.12" />
+                    <line x1="0" y1="0" x2="60" y2="60" stroke="#D4AF37" stroke-width="0.4" stroke-opacity="0.06" />
+                    <line x1="60" y1="0" x2="0" y2="60" stroke="#D4AF37" stroke-width="0.4" stroke-opacity="0.06" />
+                  </pattern>
+                </defs>
+
+                <!-- Latar Belakang Hitam Pekat + Pola Art Deco -->
+                <rect width="900" height="420" fill="#070707" />
+                <rect width="900" height="420" fill="url(#artDecoPattern)" />
+
+                <!-- Bingkai Garis Ganda Emas + Ornamen Sudut -->
+                <rect x="12" y="12" width="876" height="396" fill="none" stroke="url(#goldBorderGrad)" stroke-width="1.8" />
+                <rect x="18" y="18" width="864" height="384" fill="none" stroke="url(#goldBorderGrad)" stroke-width="1" stroke-opacity="0.85" />
+                <polygon points="24,20 28,24 24,28 20,24" fill="#F5C451" />
+                <polygon points="876,20 880,24 876,28 872,24" fill="#F5C451" />
+                <polygon points="24,392 28,396 24,400 20,396" fill="#F5C451" />
+                <polygon points="876,392 880,396 876,400 872,396" fill="#F5C451" />
+
+                <!-- Garis Pembatas Horizontal Footer -->
+                <line x1="18" y1="342" x2="882" y2="342" stroke="url(#goldTextGrad)" stroke-width="1.4" />
+
+                <!-- SISI KIRI: LOGO & 2 KOTAK KAPSUL PUTIH -->
+                <g transform="translate(40, 44) scale(0.175)">
+                  <circle cx="200" cy="200" r="200" fill="#000000" />
+                  <circle cx="200" cy="200" r="184" fill="none" stroke="#FF0000" stroke-width="15" />
+                  <circle cx="200" cy="200" r="163" fill="none" stroke="#FFFFFF" stroke-width="11" />
+                  <rect x="281" y="132" width="32" height="58" fill="#FF0000" />
+                  <rect x="275" y="123" width="44" height="14" fill="#FF0000" />
+                  <path d="M 62 198 Q 130 145 200 104 Q 270 145 338 198 L 325 203 Q 262 162 200 125 Q 138 162 75 203 Z" fill="#FF0000" />
+                  <rect x="177" y="144" width="20" height="17" fill="#FFFFFF" />
+                  <rect x="203" y="144" width="20" height="17" fill="#FFFFFF" />
+                  <rect x="177" y="166" width="20" height="17" fill="#FFFFFF" />
+                  <rect x="203" y="166" width="20" height="17" fill="#FFFFFF" />
+                  <path d="M 56 207 Q 132 166 196 205 L 185 211 Q 132 180 68 214 Z" fill="#FFFFFF" />
+                  <path d="M 162 214 Q 248 164 344 207 L 332 214 Q 248 180 177 214 Z" fill="#FFFFFF" />
+                  <rect x="64" y="214" width="272" height="8" fill="#FFFFFF" />
+                  <text x="200" y="263" text-anchor="middle" fill="#FF0000" font-family="Georgia, 'Times New Roman', serif" font-size="38" font-weight="bold">FFProjectJKT</text>
+                  <text x="200" y="309" text-anchor="middle" fill="#FFFFFF" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-weight="bold">&copy; 2025</text>
+                </g>
+
+                <text x="122" y="76" fill="url(#goldTextGrad)" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="bold" letter-spacing="1.2">FFPROJECTJKT</text>
+                <text x="122" y="97" fill="#F5C451" font-family="sans-serif" font-size="11.5" font-weight="700" letter-spacing="2.4">PROPERTY AFFILIATE</text>
+                <text x="122" y="113" fill="#BFA054" font-family="sans-serif" font-size="9.5" font-weight="600" letter-spacing="1.8">OFFICIAL PARTNER</text>
+
+                <text x="44" y="168" fill="#FFFFFF" font-family="sans-serif" font-size="13" font-weight="700">Biaya Pendaftaran :</text>
+                <rect x="40" y="178" width="265" height="38" rx="19" fill="#FFFFFF" />
+                <text x="172.5" y="202" text-anchor="middle" fill="#0A0A0A" font-family="sans-serif" font-size="15.5" font-weight="800" letter-spacing="0.5">GRATIS &bull; TANPA MODAL</text>
+
+                <text x="44" y="246" fill="#FFFFFF" font-family="sans-serif" font-size="13" font-weight="700">Potensi Komisi :</text>
+                <rect x="40" y="256" width="265" height="38" rx="19" fill="#FFFFFF" />
+                <text x="172.5" y="280" text-anchor="middle" fill="#0A0A0A" font-family="sans-serif" font-size="15.5" font-weight="800" letter-spacing="0.5">HINGGA PULUHAN JUTA++</text>
+
+                <!-- PILAR ART DECO KIRI -->
+                <g stroke="url(#goldTextGrad)" fill="none">
+                  <line x1="330" y1="46" x2="330" y2="316" stroke-width="1.6" />
+                  <line x1="362" y1="46" x2="362" y2="316" stroke-width="1.6" />
+                  <g stroke-width="1.5">
+                    <line x1="334" y1="52" x2="358" y2="52" />
+                    <line x1="334" y1="60" x2="358" y2="60" />
+                    <line x1="334" y1="68" x2="358" y2="68" />
+                    <line x1="334" y1="76" x2="358" y2="76" />
+                    <line x1="334" y1="84" x2="358" y2="84" />
+                    <line x1="334" y1="92" x2="358" y2="92" />
+                    <line x1="334" y1="100" x2="358" y2="100" />
+                    <line x1="334" y1="108" x2="358" y2="108" />
+                    <line x1="334" y1="116" x2="358" y2="116" />
+                    <line x1="334" y1="124" x2="358" y2="124" />
+                  </g>
+                  <polygon points="346,138 356,150 346,162 336,150" stroke-width="1.5" />
+                  <polygon points="346,144 351,150 346,156 341,150" fill="#F5C451" stroke="none" />
+                  <polygon points="346,169 356,181 346,193 336,181" stroke-width="1.5" />
+                  <polygon points="346,175 351,181 346,187 341,181" fill="#F5C451" stroke="none" />
+                  <polygon points="346,200 356,212 346,224 336,212" stroke-width="1.5" />
+                  <polygon points="346,206 351,212 346,218 341,212" fill="#F5C451" stroke="none" />
+                  <path d="M 366 146 L 384 181 L 366 216" stroke-width="1.6" />
+                  <path d="M 366 158 L 378 181 L 366 204" stroke-width="1.2" />
+                  <circle cx="372" cy="181" r="2.2" fill="#F5C451" stroke="none" />
+                  <g stroke-width="1.5">
+                    <line x1="334" y1="238" x2="358" y2="238" />
+                    <line x1="334" y1="246" x2="358" y2="246" />
+                    <line x1="334" y1="254" x2="358" y2="254" />
+                    <line x1="334" y1="262" x2="358" y2="262" />
+                    <line x1="334" y1="270" x2="358" y2="270" />
+                    <line x1="334" y1="278" x2="358" y2="278" />
+                    <line x1="334" y1="286" x2="358" y2="286" />
+                    <line x1="334" y1="294" x2="358" y2="294" />
+                    <line x1="334" y1="302" x2="358" y2="302" />
+                    <line x1="334" y1="310" x2="358" y2="310" />
+                  </g>
+                </g>
+
+                <!-- KONTEN UTAMA TENGAH-KANAN -->
+                <text x="596" y="102" text-anchor="middle" fill="url(#goldTextGrad)" font-family="sans-serif" font-size="20" font-weight="800" letter-spacing="2">OPEN RECRUITMENT &bull; AGEN LEPAS</text>
+                <line x1="418" y1="118" x2="774" y2="118" stroke="url(#goldTextGrad)" stroke-width="1" stroke-opacity="0.55" />
+
+                <text x="596" y="206" text-anchor="middle" fill="url(#goldHeroGrad)" font-family="sans-serif" font-size="64" font-weight="900" letter-spacing="2.5">AFFILIATOR</text>
+
+                <line x1="418" y1="226" x2="774" y2="226" stroke="url(#goldTextGrad)" stroke-width="1" stroke-opacity="0.55" />
+                <text x="596" y="264" text-anchor="middle" fill="url(#goldTextGrad)" font-family="Georgia, 'Times New Roman', serif" font-size="24" font-weight="bold" letter-spacing="1.2">PROPERTI TANPA MODAL</text>
+                <text x="596" y="293" text-anchor="middle" fill="#E8D298" font-family="sans-serif" font-size="14" font-weight="600">Banner, Video &amp; Materi Iklan Siap Pakai &bull; FFProjectJKT</text>
+
+                <!-- PILAR ART DECO KANAN -->
+                <g stroke="url(#goldTextGrad)" fill="none">
+                  <line x1="830" y1="46" x2="830" y2="316" stroke-width="1.6" />
+                  <line x1="862" y1="46" x2="862" y2="316" stroke-width="1.6" />
+                  <g stroke-width="1.5">
+                    <line x1="834" y1="52" x2="858" y2="52" />
+                    <line x1="834" y1="60" x2="858" y2="60" />
+                    <line x1="834" y1="68" x2="858" y2="68" />
+                    <line x1="834" y1="76" x2="858" y2="76" />
+                    <line x1="834" y1="84" x2="858" y2="84" />
+                    <line x1="834" y1="92" x2="858" y2="92" />
+                    <line x1="834" y1="100" x2="858" y2="100" />
+                    <line x1="834" y1="108" x2="858" y2="108" />
+                    <line x1="834" y1="116" x2="858" y2="116" />
+                    <line x1="834" y1="124" x2="858" y2="124" />
+                  </g>
+                  <polygon points="846,138 856,150 846,162 836,150" stroke-width="1.5" />
+                  <polygon points="846,144 851,150 846,156 841,150" fill="#F5C451" stroke="none" />
+                  <polygon points="846,169 856,181 846,193 836,181" stroke-width="1.5" />
+                  <polygon points="846,175 851,181 846,187 841,181" fill="#F5C451" stroke="none" />
+                  <polygon points="846,200 856,212 846,224 836,212" stroke-width="1.5" />
+                  <polygon points="846,206 851,212 846,218 841,212" fill="#F5C451" stroke="none" />
+                  <path d="M 826 146 L 808 181 L 826 216" stroke-width="1.6" />
+                  <path d="M 826 158 L 814 181 L 826 204" stroke-width="1.2" />
+                  <circle cx="820" cy="181" r="2.2" fill="#F5C451" stroke="none" />
+                  <g stroke-width="1.5">
+                    <line x1="834" y1="238" x2="858" y2="238" />
+                    <line x1="834" y1="246" x2="858" y2="246" />
+                    <line x1="834" y1="254" x2="858" y2="254" />
+                    <line x1="834" y1="262" x2="858" y2="262" />
+                    <line x1="834" y1="270" x2="858" y2="270" />
+                    <line x1="834" y1="278" x2="858" y2="278" />
+                    <line x1="834" y1="286" x2="858" y2="286" />
+                    <line x1="834" y1="294" x2="858" y2="294" />
+                    <line x1="834" y1="302" x2="858" y2="302" />
+                    <line x1="834" y1="310" x2="858" y2="310" />
+                  </g>
+                </g>
+
+                <!-- FOOTER BAR KONTAK -->
+                <g stroke="#F5C451" stroke-width="1.4" fill="none">
+                  <circle cx="56" cy="372" r="12" />
+                  <rect x="49" y="367" width="14" height="10" rx="1.5" stroke-width="1.2" />
+                  <path d="M 49 368 L 56 373 L 63 368" stroke-width="1.2" />
+
+                  <circle cx="88" cy="372" r="12" />
+                  <circle cx="88" cy="372" r="6" stroke-width="1.2" />
+                  <line x1="82" y1="372" x2="94" y2="372" stroke-width="1" />
+                  <ellipse cx="88" cy="372" rx="3" ry="6" stroke-width="1" />
+
+                  <circle cx="120" cy="372" r="12" />
+                  <polygon points="117,367 125,372 117,377" fill="#F5C451" stroke="none" />
+                </g>
+                <text x="144" y="377" fill="#F0DFB0" font-family="sans-serif" font-size="14" font-weight="500">ffprojectjkt@gmail.com  &bull;  bit.ly/FFProjectJKT</text>
+
+                <g stroke="#F5C451" stroke-width="1.5" fill="none">
+                  <circle cx="654" cy="372" r="13" />
+                  <path d="M 650 366 C 649 368 650 372 653 375 C 656 378 659 378 660 377 L 658 375 L 656 376 C 655 375 653 373 652 371 L 653 369 Z" fill="#F5C451" stroke="none" />
+                </g>
+                <text x="678" y="378" fill="#FFFFFF" font-family="sans-serif" font-size="18" font-weight="700" letter-spacing="0.5">+62 813-8500-5657</text>
+              </svg>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-navy-900">2. Teks Iklan Sosmed Siap Copy-Paste (WA / FB / IG / TikTok)</span>
+              <button type="button" onclick="copyTextById('teksIklanPromo', 'copyStatus')" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-navy-900 text-gold-400 hover:bg-navy-800 transition">
+                <i class="fa-solid fa-copy mr-1"></i> Salin Teks Iklan
+              </button>
+            </div>
+            <textarea id="teksIklanPromo" rows="8" readonly class="w-full p-3.5 rounded-xl bg-slate-50 border border-slate-300 text-xs sm:text-sm text-slate-800 leading-relaxed focus:outline-none">🏡 PELUANG PENGHASILAN TAMBAHAN DARI RUMAH! 🏡
+Dicari Agen Lepas AFFILIATOR PROPERTI bersama FFProjectJKT!
+
+Punya akun WhatsApp, Facebook, Instagram, TikTok, YouTube, atau Google Business? Yuk manfaatkan jadi sumber komisi jutaan rupiah!
+
+✅ 100% GRATIS pendaftaran (Tanpa modal & tanpa target)
+✅ Alat promosi SUDAH DISIAPKAN (Iklan baris, Banner & Video siap posting)
+✅ Tidak perlu antar survei atau urus KPR/Notaris
+✅ Komisi transparan: 10% dari komisi kotor pengelola (2% dari harga jual)
+
+Cukup posting materi iklan dari kami, biarkan tim FFProjectJKT yang closing-kan!
+📩 Info & Pendaftaran Resmi: ffprojectjkt@gmail.com
+#AffiliatorProperti #FFProjectJKT #BisnisProperti #KerjaDariRumah #PeluangUsaha</textarea>
+            <p id="copyStatus" class="hidden text-xs text-emerald-600 font-bold mt-1.5">
+              <i class="fa-solid fa-check-circle mr-1"></i>Teks iklan berhasil disalin ke clipboard!
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 3: LOGIN PIN ADMIN PENGELOLA ==================== -->
+  <div id="adminPinModal" class="fixed inset-0 bg-navy-950/85 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full border-2 border-gold-500 shadow-2xl overflow-hidden">
+      <div class="navy-gradient px-5 py-4 border-b border-gold-500 flex items-center justify-between">
+        <h3 class="font-display font-bold text-base text-white flex items-center gap-2">
+          <i class="fa-solid fa-shield-halved text-gold-400"></i>
+          Verifikasi Pengelola
+        </h3>
+        <button type="button" onclick="closeAdminPinModal()" class="text-slate-300 hover:text-white">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <form onsubmit="verifyAdminPin(event)" class="p-5 space-y-4">
+        <p class="text-xs text-slate-600">
+          Area khusus pengelola (<strong>ffprojectjkt@gmail.com</strong>). Masukkan Password Admin untuk mengakses dan mengunduh file database Excel/CSV pendaftar.
+        </p>
+        <div>
+          <label for="adminPinInput" class="block text-xs font-bold text-navy-900 mb-1">Password Keamanan Admin</label>
+          <input
+            type="password"
+            id="adminPinInput"
+            maxlength="30"
+            required
+            placeholder="Masukkan Password..."
+            class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-navy-900 outline-none text-center font-mono text-base tracking-wider"
+          />
+          <p id="pinErrorMsg" class="hidden text-xs text-rose-600 font-semibold mt-1.5 text-center">Password salah! Silakan coba lagi.</p>
+        </div>
+        <button type="submit" class="w-full py-2.5 rounded-xl navy-gradient text-gold-400 font-bold text-sm hover:opacity-95 transition">
+          Buka Database Pengelola
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL 4: PANEL DATABASE ADMIN ==================== -->
+  <div id="adminDashboardModal" class="fixed inset-0 bg-navy-950/90 backdrop-blur-sm z-50 hidden items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-5xl w-full border-2 border-gold-500 shadow-2xl overflow-hidden my-6">
+      <div class="navy-gradient px-6 py-4 border-b-2 border-gold-500 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div>
+          <h3 class="font-display font-bold text-lg text-white flex items-center gap-2">
+            <i class="fa-solid fa-database text-gold-400"></i>
+            DATABASE AFFILIATOR TERDAFTAR
+          </h3>
+          <p class="text-xs text-gold-300">Akun Pengelola: ffprojectjkt@gmail.com &bull; Terupdate Otomatis Saat Pendaftar Submit</p>
+        </div>
+        <button type="button" onclick="closeAdminDashboard()" class="text-slate-300 hover:text-white text-xl self-end sm:self-auto">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
+          <div class="text-xs sm:text-sm">
+            Total Affiliator Terdaftar: <strong id="adminTotalCount" class="text-navy-900 text-base">0</strong> Orang
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <button type="button" onclick="exportToExcelFile()" class="px-4 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm shadow transition flex items-center gap-2">
+              <i class="fa-solid fa-file-excel"></i> Unduh File Excel (.xls)
+            </button>
+            <button type="button" onclick="exportToCsvFile()" class="px-4 py-2 rounded-xl bg-navy-900 hover:bg-navy-800 text-gold-400 font-bold text-xs sm:text-sm shadow transition flex items-center gap-2">
+              <i class="fa-solid fa-file-csv"></i> Unduh CSV (Google Sheets)
+            </button>
+            <button type="button" onclick="toggleGoogleWebhookConfig()" class="px-3.5 py-2 rounded-xl border border-slate-300 bg-white hover:bg-slate-100 text-navy-900 font-semibold text-xs transition flex items-center gap-1.5">
+              <i class="fa-brands fa-google text-amber-500"></i> Sinkron Google Account
+            </button>
+          </div>
+        </div>
+
+        <div id="googleSyncBox" class="hidden bg-amber-50 border border-amber-300 rounded-xl p-4 text-xs space-y-2.5">
+          <div class="font-bold text-navy-900 flex items-center justify-between">
+            <span><i class="fa-brands fa-google-drive text-emerald-700 mr-1"></i> Sinkronisasi Otomatis ke Google Sheets / Google Form (ffprojectjkt@gmail.com)</span>
+            <span class="text-[11px] bg-amber-200 text-amber-900 px-2 py-0.5 rounded font-semibold">Tanpa Coding</span>
+          </div>
+          <p class="text-slate-700 leading-relaxed">
+            Secara default, aplikasi ini langsung menyimpan &amp; memperbarui database di Google Sheets serta memungkinkan Anda mengunduh file <strong>Excel (.xls)</strong> atau <strong>CSV</strong>. Jika Anda juga memiliki URL Webhook tambahan (misalnya dari Make.com / Zapier), tempel di bawah ini:
+          </p>
+          <div class="flex flex-col sm:flex-row gap-2">
+            <input type="url" id="webhookUrlInput" placeholder="Opsional: Tempel URL Google Form / Webhook di sini..." class="flex-1 px-3 py-2 rounded-lg border border-slate-300 bg-white text-xs" />
+            <button type="button" onclick="saveWebhookUrl()" class="px-4 py-2 rounded-lg bg-navy-900 text-gold-400 font-bold text-xs">Simpan URL</button>
+          </div>
+          <p id="webhookStatusMsg" class="hidden text-emerald-700 font-semibold"></p>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-slate-300 max-h-[50vh]">
+          <table class="w-full text-left border-collapse text-xs min-w-[920px]">
+            <thead class="bg-navy-900 text-white sticky top-0">
+              <tr>
+                <th class="p-3">No</th>
+                <th class="p-3">ID &amp; Waktu Daftar</th>
+                <th class="p-3">Nama Lengkap (KTP)</th>
+                <th class="p-3">WhatsApp</th>
+                <th class="p-3">Email</th>
+                <th class="p-3">Domisili</th>
+                <th class="p-3">Media Promosi &amp; Akun</th>
+                <th class="p-3">Rekening Bank</th>
+                <th class="p-3 text-center">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="adminTableBody" class="divide-y divide-slate-200 bg-white">
+              <!-- Diisi otomatis via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== TOAST PERINGATAN AKSES KIT PROMOSI TERKUNCI ==================== -->
+  <div id="lockWarningToast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden max-w-md w-[92%] bg-navy-950 text-white border-2 border-rose-500 rounded-2xl shadow-2xl p-4 flex items-start gap-3">
+    <div class="w-9 h-9 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center shrink-0 mt-0.5">
+      <i class="fa-solid fa-lock"></i>
+    </div>
+    <div class="flex-1 text-xs sm:text-sm">
+      <p class="font-bold text-rose-400">Akses Kit Promosi Terkunci!</p>
+      <p class="text-slate-200 mt-0.5 leading-relaxed">
+        Silakan mendaftarkan akun Anda terlebih dahulu sebelum menerima &amp; melihat Kit Promosi.
+      </p>
+      <button type="button" onclick="hideLockToast(); scrollToSection('form-section');" class="mt-2 inline-flex items-center gap-1.5 text-xs font-bold text-gold-400 hover:text-gold-300 underline">
+        <i class="fa-solid fa-arrow-down"></i> Daftar Sekarang
+      </button>
+    </div>
+    <button type="button" onclick="hideLockToast()" class="text-slate-400 hover:text-white" aria-label="Tutup peringatan">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+
+  <!-- JavaScript Terpisah -->
+  <script src="script.js"></script>
+</body>
+</html>
